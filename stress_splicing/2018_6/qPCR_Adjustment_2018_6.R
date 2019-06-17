@@ -11,7 +11,7 @@ library(MASS)
 library(glm.predict)
 
 # Mac Directory
-setwd("~/stapleton_lab/stress_splicing/2018_6")
+setwd("~/Stapleton/Copeland/stapleton_lab/Stress_Splicing/2018_6")
 #setwd("~/Stapleton_Lab/Stapleton_Lab/Stress_Splicing/2018_(MONTH)")
 # PC Directory
 #setwd("C:/Users/twili/Desktop/GIThub/StapletonLab/StressSplicing/qPCR")
@@ -207,6 +207,13 @@ newratios.calib = t(newratios.calib)
 newratios.calib = as.data.frame(newratios.calib)
 newratios.calib$combratio = as.numeric(newratios.calib$combratio)
 newratios.calib$startqvalues = as.numeric(newratios.calib$startqvalues)
+# Duplicate newratios.calib data frame, transpose for boxplot visualizations at each s.q.
+newratios.calib.boxplot = as.data.frame(t(newratios.calib))
+colnames(newratios.calib.boxplot) = c("0.01", "0.05", "0.10", "0.50", "1.00", "50.00")
+newratios.calib.boxplot = newratios.calib.boxplot[-1,]
+newratiosvector = as.vector(as.matrix.data.frame(newratios.calib.boxplot))
+startqvector = sort(rep(unique(startquan), length(newratios.calib.boxplot$`0.01`)))
+newratios.calib.boxplot = as.data.frame(cbind(newratiosvector, startqvector))
 
 #################### end combination ratios #####################
 
@@ -215,25 +222,31 @@ newratios.calib$startqvalues = as.numeric(newratios.calib$startqvalues)
 ##########################################################
 
 # Calculate z-score for calibrated data
-zscore = (calib_data$ratio - mean(calib_data$ratio))/sd(calib_data$ratio)
+zscore_calib = (calib_data$ratio - mean(calib_data$ratio))/sd(calib_data$ratio)
 # Predict calibrated data ratios using experimental data
-pred.ratio = zscore*sd(ratio.exp)+mean(ratio.exp)
+pred.ratio = zscore_calib*sd(ratio.exp)+mean(ratio.exp)
 # Append y (predicted calibrated ratios) to calibrated data frame -- CALIBRATED RATIOS IN TERMS OF EXPERIMENTAL PARAMETERS
 calib_data = cbind(calib_data, pred.ratio) 
 # Create empty vectors for for-loop input
 calib_data$test1 = as.numeric(as.character(calib_data$test1))
 calib_data$allP = as.numeric(as.character(calib_data$allP))
-adj_val = c()
+adj_val = c(recursive=TRUE)
 allP = c()
 startq = c()
 ratio =calib_data$allP/calib_data$test1
 # Itterating through each set of (3) observations performing U-Stats on each set of inputs
-for (i in 1:(nrow(calib_data)/3)){
-  t_x <- c(calib_data$allP[3*i - 2], calib_data$allP[3*i - 1], calib_data$allP[3*i])
-  t_y <- c(calib_data$test1[3*i - 2], calib_data$test1[3*i - 1], calib_data$test1[3*i])
-  adj <- mean(outer(t_x, t_y, "-"))
-  adj_val <- c(adj_val, adj, adj, adj)
- }
+# for (i in 1:(nrow(calib_data)/3)){
+#   t_x <- c(calib_data$allP[3*i - 2], calib_data$allP[3*i - 1], calib_data$allP[3*i])
+#   t_y <- c(calib_data$test1[3*i - 2], calib_data$test1[3*i - 1], calib_data$test1[3*i])
+#   adj <- mean(outer(t_x, t_y, "-"))
+#   adj_val <- c(adj_val, adj, adj, adj)
+#  }
+group_data <- split.data.frame(calib_data, calib_data$startq)
+#count = 0
+for (i in group_data){
+  adj_val <- c(adj_val, average(i$allP)-average(i$test1))
+  #adj_val c(adj_val,adj)
+}
 adjusted_test1 <- test1 + adj_val
 # Append adjusted test1 values and adjustment value to data set
 calib_data=cbind(calib_data,adjusted_test1,adj_val)
@@ -254,10 +267,12 @@ average <- function(col1){
   return(avg)
 }
 #Subset data by starting quantity
-group = split.data.frame(calib_adj, calib_adj$startq)
+
 
 adj.test1.avg = NULL;
-for (k in group){
+group_adj <- split.data.frame(calib_adj, calib_adj$startq)
+
+for (k in group_adj){
   adj.test1.avg = c(adj.test1.avg, average(k$adjusted_test1))
 }
 print(adj.test1.avg)
@@ -267,13 +282,14 @@ calib_adj$adj.test1.avg = as.numeric(as.character(calib_adj$adj.test1.avg))
 # Rename columns
 colnames(calib_adj)=c("startq", "adj.test1.avg")
 
+
 # Ordinal Logistic Regression Model - starting quantity as response to calibrated z-score
-model = polr(as.factor(calib_data$startq) ~ zscore, Hess = TRUE)
+model = polr(as.factor(calib_data$startq) ~ zscore_calib, Hess = TRUE)
 summary(model)
 
 # Calculate experimental data z-score
-zscore = (exp_data$ratio.exp - mean(exp_data$ratio.exp))/sd(exp_data$ratio.exp)
-prob.matrix = predict(model, zscore, type='p')
+zscore_exp = (exp_data$ratio.exp - mean(exp_data$ratio.exp))/sd(exp_data$ratio.exp)
+prob.matrix = predict(model, zscore_exp, type='p')
 
 # Apply probability matrix to the adjusted test 1 averages
 apply(prob.matrix, 1, function(x) x*calib_adj$adj.test1.avg)
@@ -285,12 +301,8 @@ exp_data$stress = exp_data$allP.exp - exp_data$exp.adjust
 
 ###PLOTS###
 # Calibrated data - s.q. vs. ratio
-plot(as.factor(calib_data$startq), calib_data$, xlab='Starting Quantity', ylab='Ratio', 
-     main='Calibrated Data - Starting Quantities vs. Ratios')
-# Boxplot of Stress Product
-boxplot(exp_data$VQTL, main='Box Plot of Stress Product', ylab='Stress Product')
-hist(exp_data$VQTL, xlab='Stress Product', main='Histogram of Stress Product', col='blue')
-
+plot(newratios.calib.boxplot$startqvector, as.numeric(newratios.calib.boxplot$newratiosvector), xlab='Starting Quantity', ylab='Ratio', 
+     main='2018_6 Calibrated Data - Starting Quantities vs. Ratios')
 
 
 ###### OLD CODE #######
