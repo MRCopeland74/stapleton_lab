@@ -54,10 +54,10 @@ print("before scanonevar")
 # ~ Env + var.QTL.add + var.QTL.dom + Env * (var.QTL.add + var.QTL.dom)
 
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
-#~ Env + var.QTL.add + var.QTL.dom + (mean.QTL.add * mean.QTL.dom)
+#~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 intOneVar <- scanonevar(cross = fr,
                         mean.formula = Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom),
-                        var.formula = ~ Env + var.QTL.add + var.QTL.dom + (mean.QTL.add * mean.QTL.dom),
+                        var.formula = ~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom),
                         return.covar.effects = TRUE)
 print("second scanonevar")
 # Writing the result of the interactive scanonevar for later use
@@ -66,4 +66,4 @@ write_rds(intOneVar, "intOneVar.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intOneVar$result, file = "Manching_interactive_model.csv")
+write.csv(intOneVar$result, file = "Manching_interactive_model2.csv")

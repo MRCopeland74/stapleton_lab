@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -J Perm_Manching      # Job name
+#SBATCH -J First Job      # Job name
 #SBATCH -e myjob.e%j       # Name of stderr error file
 #SBATCH -p normal          # Queue (partition) name
-#SBATCH -N 2               # Total # of nodes (must be 1 for serial)
+#SBATCH -N 1               # Total # of nodes (must be 1 for serial)
 #SBATCH -n 1               # Total # of mpi tasks (should be 1 for serial)
 #SBATCH -t 48:00:00        # Run time (hh:mm:ss)
 #SBATCH --mail-user=mrc5353@uncw.edu
