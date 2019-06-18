@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J LowWater      # Job name
+#SBATCH -J alladd      # Job name
 #SBATCH -e myjob.e%j       # Name of stderr error file
 #SBATCH -p normal          # Queue (partition) name
 #SBATCH -N 1               # Total # of nodes (must be 1 for serial)

@@ -37,6 +37,8 @@ fr <- drop.nullmarkers(fr)
 fr <- calc.genoprob(fr)
 
 fr$pheno$Low.Water <- factor(fr$pheno$Low.Water)
+fr$pheno$Low.Nitrogen <- factor(fr$pheno$Low.Nitrogen)
+fr$pheno$Pathogen <- factor(fr$pheno$Pathogen)
 print("before scanonevar")
 # Additive scanonevar function
 # addOneVar <- scanonevar(cross = fr,
@@ -55,18 +57,18 @@ print("before scanonevar")
 
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
-intOneVar_lw <- scanonevar(cross = fr,
-                        mean.formula = Height ~ Low.Water:(mean.QTL.add + mean.QTL.dom),
-                        var.formula = ~ Low.Water:(var.QTL.add + var.QTL.dom),
+intOneVar_wnp <- scanonevar(cross = fr,
+                        mean.formula = Height ~ Low.Water + Low.Nitrogen + Pathogen,
+                        var.formula = ~ Low.Water + Low.Nitrogen + Pathogen,
                         return.covar.effects = TRUE)
 print("Interactive lw scanonevar")
 # Writing the result of the interactive scanonevar for later use
-write_rds(intOneVar_lw, "intOneVar_lw.rds", compress = "xz")
+write_rds(intOneVar_wnp, "intOneVar_wnp.rds", compress = "xz")
 
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intOneVar_lw$result, file = "Manching_interactive_lw_model.csv")
+write.csv(intOneVar_wnp$result, file = "Manching_interactive_lw_model.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
