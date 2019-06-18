@@ -12,8 +12,8 @@ library(tidyverse)
 # Stampede2 Directory
 setwd("/work/06566/tg858651/stampede2/Github/stapleton_lab/vQTL/")
 
-# Michael's Mac Directory
-#setwd("/Users/mbyrd/Stapleton/Stapleton_Lab/vQTL/Manching_Covariate/Interaction")
+# Copeland's Mac Directory
+#setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/vQTL/")
 
 # Reading in the input file as a 'cross' object
 
@@ -36,7 +36,7 @@ fr <- drop.nullmarkers(fr)
 #scan with variance
 fr <- calc.genoprob(fr)
 
-fr$pheno$Env <- factor(fr$pheno$Env)
+fr$pheno$Low.Water <- factor(fr$pheno$Low.Water)
 print("before scanonevar")
 # Additive scanonevar function
 # addOneVar <- scanonevar(cross = fr,
@@ -55,15 +55,20 @@ print("before scanonevar")
 
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
-intOneVar <- scanonevar(cross = fr,
-                        mean.formula = Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom),
-                        var.formula = ~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom),
+intOneVar_lw <- scanonevar(cross = fr,
+                        mean.formula = Height ~ Low.Water:(mean.QTL.add + mean.QTL.dom),
+                        var.formula = ~ Low.Water:(var.QTL.add + var.QTL.dom),
                         return.covar.effects = TRUE)
-print("second scanonevar")
+print("Interactive lw scanonevar")
 # Writing the result of the interactive scanonevar for later use
-write_rds(intOneVar, "intOneVar.rds", compress = "xz")
+write_rds(intOneVar_lw, "intOneVar_lw.rds", compress = "xz")
 
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intOneVar$result, file = "Manching_interactive_model2.csv")
+write.csv(intOneVar_lw$result, file = "Manching_interactive_lw_model.csv")
+
+#plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
+
+
+
