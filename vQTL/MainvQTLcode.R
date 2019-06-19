@@ -57,17 +57,17 @@ print("before scanonevar")
 
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
-addOneVar_Norm <- scanonevar(cross = fr,
+addOneVarNorm <- scanonevar(cross = fr,
                         mean.formula = Height ~ mean.QTL.add + mean.QTL.dom,
                         var.formula = ~ var.QTL.add + var.QTL.dom,
                         return.covar.effects = TRUE)
 print("Additive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
-write_rds(addOneVar_NORM, "addOneVar_NORM.rds", compress = "xz")
+write_rds(addOneVarNorm, "addOneVar_NORM.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(addOneVar_Norm$result, file = "Manching_additive_NORM_model.csv")
+write.csv(addOneVarNorm$result, file = "Manching_additive_NORM_model.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
