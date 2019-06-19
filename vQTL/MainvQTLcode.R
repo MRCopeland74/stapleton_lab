@@ -59,7 +59,7 @@ print("before scanonevar")
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 intOneVarNorm <- scanonevar(cross = fr,
                         mean.formula = Height ~ Env:(mean.QTL.add + mean.QTL.dom),
-                        var.formula = ~ Env(var.QTL.add + var.QTL.dom),
+                        var.formula = ~ Env:(var.QTL.add + var.QTL.dom),
                         return.covar.effects = TRUE)
 print("interactive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
