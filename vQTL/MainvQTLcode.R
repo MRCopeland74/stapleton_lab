@@ -36,7 +36,7 @@ fr <- drop.nullmarkers(fr)
 #scan with variance
 fr <- calc.genoprob(fr)
 
- fr$pheno$Env <- factor(fr$pheno$Env)
+fr$pheno$Env <- factor(fr$pheno$Env)
 # fr$pheno$Low.Nitrogen <- factor(fr$pheno$Low.Nitrogen)
 #fr$pheno$Pathogen <- factor(fr$pheno$Pathogen)
 print("before scanonevar")
@@ -50,6 +50,9 @@ print("before scanonevar")
 # write_rds(addOneVar, "addOneVar.rds", compress = "xz")
 # print("first scanonevar")
 
+
+#Height ~ Env * (mean.QTL.add + mean.QTL.dom)
+
 # Interactive scanonevar function
 #Two interactive models worth trying
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + Env * (mean.QTL.add + mean.QTL.dom)
@@ -57,17 +60,17 @@ print("before scanonevar")
 
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
-intOneVarNorm <- scanonevar(cross = fr,
-                        mean.formula = Height ~ Env:(mean.QTL.add + mean.QTL.dom),
-                        var.formula = ~ Env:(var.QTL.add + var.QTL.dom),
+intOneVarNorm2 <- scanonevar(cross = fr,
+                        mean.formula = fr$pheno$Height ~ fr$pheno$Env:mean.QTL.add + fr$pheno$Low.Water:mean.QTL.dom,
+                        var.formula = ~ fr$pheno$Low.Water:var.QTL.add + fr$pheno$Low.Water:var.QTL.dom,
                         return.covar.effects = TRUE)
 print("interactive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
-write_rds(intOneVarNorm, "intOneVar_NORM.rds", compress = "xz")
+write_rds(intOneVarNorm2, "intOneVar_NORM2.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intOneVarNorm$result, file = "Manching_interactive_NORM_model.csv")
+write.csv(intOneVarNorm2$result, file = "Manching_interactive_NORM2_model.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
