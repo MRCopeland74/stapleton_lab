@@ -10,3 +10,4 @@
 
 # Other commands must follow all #SBATCH directives...
 Rscript --verbose ./MainvQTLcode.R> ./output.Rout
+

@@ -61,8 +61,8 @@ print("before scanonevar")
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 intOneVarNorm2 <- scanonevar(cross = fr,
-                        mean.formula = fr$pheno$Height ~ fr$pheno$Env:mean.QTL.add + fr$pheno$Low.Water:mean.QTL.dom,
-                        var.formula = ~ fr$pheno$Low.Water:var.QTL.add + fr$pheno$Low.Water:var.QTL.dom,
+                        mean.formula = fr$pheno$Height ~ fr$pheno$Env:mean.QTL.add + fr$pheno$Env:mean.QTL.dom,
+                        var.formula = ~ fr$pheno$Env:var.QTL.add + fr$pheno$Env:var.QTL.dom,
                         return.covar.effects = TRUE)
 print("interactive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
