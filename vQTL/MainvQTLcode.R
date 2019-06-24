@@ -17,7 +17,7 @@ setwd("/work/06566/tg858651/stampede2/Github/stapleton_lab/vQTL/")
 
 # Reading in the input file as a 'cross' object
 
-data <- read.csv(file = "ManchingStressData_Covar.csv")
+#data <- read.csv(file = "ManchingStressData_Covar.csv")
 
 # Created a random sample
 # set.seed(1234)
@@ -36,30 +36,8 @@ fr <- drop.nullmarkers(fr)
 #scan with variance
 fr <- calc.genoprob(fr)
 
-fr$pheno$Env <- factor(fr$pheno$Env)
-
-
-
-#fr$pheno$Height <- as.matrix(fr$pheno$Height)
-
-#Height1 <- mean(fr$pheno$Height)
-
-# fr$pheno$Low.Nitrogen <- factor(fr$pheno$Low.Nitrogen)
-#fr$pheno$Pathogen <- factor(fr$pheno$Pathogen)
+fr$pheno$Low.Water <- factor(fr$pheno$Low.Water)
 print("before scanonevar")
-# Additive scanonevar function
-# addOneVar <- scanonevar(cross = fr,
-#                         mean.formula = Height ~ Env + mean.QTL.add + mean.QTL.dom,
-#                         var.formula = ~ Env + var.QTL.add + var.QTL.dom,
-#                         return.covar.effects = TRUE)
-# 
-# # Writing the result of the additive scanonevar for later use
-# write_rds(addOneVar, "addOneVar.rds", compress = "xz")
-# print("first scanonevar")
-
-
-#Height ~ Env * (mean.QTL.add + mean.QTL.dom)
-
 # Interactive scanonevar function
 #Two interactive models worth trying
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + Env * (mean.QTL.add + mean.QTL.dom)
@@ -68,17 +46,17 @@ print("before scanonevar")
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 
-intOneVarNorm2 <- scanonevar(cross = fr,
-                        mean.formula = Height ~ fr$pheno$Env:(mean.QTL.add + mean.QTL.dom),
-                        var.formula = ~fr$pheno$Env:(var.QTL.add + var.QTL.dom),
-                        return.covar.effects = TRUE)
+AddLowWater <- scanonevar(cross = fr,
+                  mean.formula = Height ~ Low.Water + mean.QTL.add + mean.QTL.dom,
+                  var.formula = ~ Low.Water + var.QTL.add + var.QTL.dom,
+                  return.covar.effects = TRUE)
 print("interactive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
-write_rds(intOneVarNorm2, "intOneVar_NORM2.rds", compress = "xz")
+write_rds(AddLowWater, "addOneVar_AddLowWater.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intOneVarNorm2$result, file = "Manching_interactive_NORM2_model.csv")
+write.csv(AddLowWater$result, file = "Manching_additive_AddLowWater_model.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
