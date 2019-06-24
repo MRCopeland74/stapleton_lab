@@ -37,6 +37,7 @@ fr <- drop.nullmarkers(fr)
 fr <- calc.genoprob(fr)
 
 fr$pheno$Env <- factor(fr$pheno$Env)
+fr$pheno$Height <- as.numeric(fr$pheno$Height)
 # fr$pheno$Low.Nitrogen <- factor(fr$pheno$Low.Nitrogen)
 #fr$pheno$Pathogen <- factor(fr$pheno$Pathogen)
 print("before scanonevar")
@@ -61,8 +62,8 @@ print("before scanonevar")
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 intOneVarNorm2 <- scanonevar(cross = fr,
-                        mean.formula = fr$pheno$Height ~ fr$pheno$Env + mean.QTL.add + mean.QTL.dom,
-                        var.formula = ~ fr$pheno$Env + var.QTL.add + var.QTL.dom,
+                        mean.formula = fr$pheno$Height ~ mean.QTL.add + mean.QTL.dom,
+                        var.formula = ~var.QTL.add + var.QTL.dom,
                         return.covar.effects = TRUE)
 print("interactive NORM scanonevar")
 # Writing the result of the interactive scanonevar for later use
