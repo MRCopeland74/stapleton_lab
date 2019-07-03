@@ -10,6 +10,7 @@ data2 = read.csv("Manching_interactive_model.csv")
 data3 = read.csv("Manching_additive_model.csv")
 data4 = read.csv("Manching_interactive_model2.csv")
 lw = read.csv("Manching_interactive_lw_model.csv")
+addlw = read.csv("Manching_additive_AddLowWater_model.csv")
 assnorm = read.csv("Manching_additive_NORM_model.csv")
 intNorm = read.csv("Manching_interactive_NORM_model.csv")
 data4cross <-read.cross(file = "ManchingStressData_Covar.csv")
@@ -19,10 +20,17 @@ intOneVarlw <- read_rds("intOneVar_lw.rds")
 intnormrds = read_rds("intOneVar_NORM.rds")
 addOneVar <- read_rds("addOneVar.rds")
 addOneVar1 <- read_rds("addOneVar_NORM.rds")
+adlowrds <- read_rds("addOneVar_AddLowWater.rds")
 vqtl::effects_over_genome_plot(intOneVar$result)
 vqtl::effects_over_genome_plot(intOneVar1, data4cross)
 vqtl::effects_over_genome_plot(intOneVarlw)
 vqtl::effects_over_genome_plot(addOneVar)
 vqtl::effects_over_genome_plot(addOneVar1)
 vqtl::effects_over_genome_plot(intnormrds)
-plot(addOneVar, tests_to_plot = "mQTL", chrs = "1")
+plot(intOneVar1
+ #    ,     tests_to_plot = "mQTL", chrs = "1"
+     )
+plot(adlowrds
+         ,     tests_to_plot = "mQTL"
+     #, chrs = "1"
+)
