@@ -48,8 +48,8 @@ print("before scanonevar")
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 
 intenv <- scanonevar(cross = fr,
-                  mean.formula = Height ~ Env + mean.QTL.add + Env*mean.QTL.add,
-                  var.formula = ~ Env + var.QTL.add + Env*var.QTL.add,
+                  mean.formula = Height ~ Low.Water + mean.QTL.add + Low.Water*mean.QTL.add,
+                  var.formula = ~ Low.Water + var.QTL.add + Low.Water*var.QTL.add,
                   return.covar.effects = TRUE)
 print("interactive ENV scanonevar")
 # Writing the result of the interactive scanonevar for later use
