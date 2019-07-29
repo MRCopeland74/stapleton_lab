@@ -22,7 +22,7 @@ for (i in colm){
  count = count+1
 }
 
-
+count2 = 1
 count = 1
 for (i in colm){
   print(i)
@@ -62,7 +62,7 @@ p[count3] <- boxplot(Maindata$Height~droplevels(Maindata$IDP3914, exclude = '-')
 count = count+1
 }
 Maindata <- Maindata[-c(1, 2), ]
-boxplot(Maindata$Height~droplevels(Maindata$mmp46, exclude = '-'))
+boxplot(Maindata$Height~droplevels(Maindata$bnl5.46c, exclude = '-',))
 
 
 #Simulated data with every possible combinantion of environment with gene
@@ -98,6 +98,11 @@ Envc = c()
 lwc = c()
 lnc = c()
 pac = c()
+
+
+
+G1f=G2f=G3f=G4f=G5f=G6f=G7f=G8f=G9f=G10f <- c()
+Heightf = c()
 for (i in lw){
   for (o in ln){
     for (u in pa){
@@ -123,12 +128,28 @@ for (i in lw){
       G9c[count4]<- w9
       G10c[count4]<- w10
       
+      # G1f[count4]<- w1
+      # G2f[count4]<- w2
+      # G3f[count4]<- w3
+      # G4f[count4]<- w4
+      # G5f[count4]<- w5
+      # G6f[count4]<- w6
+      # G7f[count4]<- w7
+      # G8f[count4]<- w8
+      # G9f[count4]<- w9
+      # G10f[count4]<- w10
+      
       lwc[count4]<- i
       lnc[count4]<- o
       pac[count4]<- u
-      Height[count4] <- a -0.9*i -0.95*o -1.1*u +1.5*w1 + 0.9*w2 +0.7*w3 + 1.3*w4 +1.2*w5 
+      Height[count4] <- a -0.9*i -0.95*o -1.1*u +1.5*w1 + 50*w2 +0.7*w3 + 1.3*w4 +1.2*w5 
       + 0.6*w6 +0.8*w7 + 1.1*w8 +1.4*w9 + 0.5*w10 
       + se[sample(1:1000, 1)]
+      
+      # Heightf[count4] <- a -0.9*i -0.95*o -1.1*u +0.7*w1 + 0.4*w2 +0.95*w3 + 1.8*w4 +1.11*w5 
+      # + 0.78*w6 +0.65*w7 + 1.5*w8 +1.9*w9 + 0.88*w10 
+      # + se[sample(1:1000, 1)]
+      
       count4=count4 +1
                       }
                     }
@@ -143,6 +164,8 @@ for (i in lw){
     }
   }
 }
+
+
 # G1c = as.factor(G1c)
 # G2c = as.factor(G2c)
 # Envc = as.factor(Envc)
@@ -216,13 +239,168 @@ vQTLsub <- calc.genoprob(vQTLsub)
 
 sub.scan <- scanonevar(cross = vQTLsub,
                        mean.formula = Height ~ Env + mean.QTL.add + Env*mean.QTL.add,
-                       var.formula = ~ Low.Water + var.QTL.add + Low.Water*var.QTL.add,
+                       var.formula = ~ Env + var.QTL.add + Env*var.QTL.add,
                        return.covar.effects = TRUE)
 
 write.csv(sub.scan$result, file = "sub_scan_results_int_LW.csv")
 
 sub.scan1 <- scanone(cross = vQTLsub)
 
-subandheight_data <- cbind.data.frame(Height.all.cross,sub_datasub_data[5:14])
+#subandheight_data <- cbind.data.frame(Height.all.cross,sub_datasub_data[5:14])
+G1f = c()
+G2f = c()
+G3f = c()
+G4f = c()
+G5f = c()
+G6f = c()
+G7f = c()
+G8f = c()
+G9f = c()
+G10f = c()
+
+
+for (i in 1:8192){
+  G1f[i]=sample(0:1,1)
+  G2f[i]=sample(0:1,1)
+  G3f[i]=sample(0:1,1)
+  G4f[i]=sample(0:1,1)
+  G5f[i]=sample(0:1,1)
+  G6f[i]=sample(0:1,1)
+  G7f[i]=sample(0:1,1)
+  G8f[i]=sample(0:1,1)
+  G9f[i]=sample(0:1,1)
+  G10f[i]=sample(0:1,1)
+}
+
+
+G1f[G1f == 0] <- "A"
+G1f[G1f == 1] <- "B"
+G2f[G2f == 0] <- "A"
+G2f[G2f == 1] <- "B"
+G3f[G3f == 0] <- "A"
+G3f[G3f == 1] <- "B"
+G4f[G4f == 0] <- "A"
+G4f[G4f == 1] <- "B"
+G5f[G5f == 0] <- "A"
+G5f[G5f == 1] <- "B"
+G6f[G6f == 0] <- "A"
+G6f[G6f == 1] <- "B"
+G7f[G7f == 0] <- "A"
+G7f[G7f == 1] <- "B"
+G8f[G8f == 0] <- "A"
+G8f[G8f == 1] <- "B"
+G9f[G9f == 0] <- "A"
+G9f[G9f == 1] <- "B"
+G10f[G10f == 0] <- "A"
+G10f[G10f == 1] <- "B"
+
+#Heightf <- rnorm(8192,mean = 200, sd =20)
+
+Heightf.all <- cbind(G1f,G2f,G3f,G4f,G5f,G6f,G7f,G8f,G9f,G10f)
+
+Heightf.all.cross <- cbind.data.frame(Height.all,Heightf.all)
+
+Heightf.all.cross$Height <- as.numeric(as.character(Heightf.all.cross$Height))
+chro <- c("", "", "", "",1,1,1,2,2,2,2,3,3,3,1,1,1,2,2,2,2,3,3,3)
+pos <- c("", "", "", "",0.3,0.6,0.8,1.3,1.4,1.6,1.9,2.4,2.5,2.7,3.1,3.3,3.7,4.1,4.2,4.7,5.2,5.4,5.8,6.4)
+chrompos <- rbind(chro,pos)
+Heightf.all.cross <- as.matrix(Heightf.all.cross)
+Heightf.all.cross <- rbind(chrompos,Heightf.all.cross)
+Heightf.all.cross <- as.data.frame(Heightf.all.cross)
+
+
+write_csv(Heightf.all.cross, "heightall_f_cross.csv")
+
+vQTLsimf <- read.cross(file = "heightall_f_cross.csv" )
+vQTLsimf <- drop.nullmarkers(vQTLsimf)
+vQTLsimf <- calc.genoprob(vQTLsimf)
+
+sim.scanf <- scanonevar(cross = vQTLsimf,
+                       mean.formula = Height ~ lwc + mean.QTL.add + lwc*mean.QTL.add,
+                       var.formula = ~  lwc + var.QTL.add + lwc*var.QTL.add,
+                       return.covar.effects = TRUE)
+
+#write.csv(sim.scan$result, file = "sim_scan_results_int_f.csv")
+
+sim.scanf1 <- scanone(cross = vQTLsimf)
+
+
+fake = subset(sim.scanf$result$mQTL.lod, grepl("f",sim.scanf$result$loc.name))
+             
+real = subset(sim.scanf$result$mQTL.lod, grepl("c",sim.scanf$result$loc.name)) 
+Loci = c("01","02","03","04","05","06","07","08","09","10")
+fake = cbind.data.frame(fake,genes)
+real = cbind.data.frame(real,genes)
+colnames(fake) = c("LOD","Loci")
+colnames(real) = c("LOD","Loci")
+
+str(real)
+ggplot()+geom_point(data=fake,aes(x=Loci,y=LOD,color = "Trojan"), position = position_jitter()) +
+  geom_point(data=real,aes(x=Loci,y=LOD,color = "Real"), position = position_jitter()) +
+  labs(title = "Simulated vs Trojan") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------Difference in height per env factor of A and B--------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+Maindata$Env = as.factor(Maindata$Env)
+
+maindata.env1 = Maindata[Maindata$Env == "1",]
+maindata.env8 = Maindata[Maindata$Env == "8",]
+
+avg.height.chr1AB <- tapply(maindata.chr$Height,maindata.chr$gpm27, mean)[4:5]
+avg.height.chr1 <- mean(maindata.chr$Height)
+
+count = 1
+avector.env1 = c()
+avector.env8 = c()
+for (i in colm){
+ # print(i)
+  avector.env1[count] <- as.vector(maindata.env1[i])
+  avector.env8[count] <- as.vector(maindata.env8[i])
+  count = count+1
+}
+
+
+AandB.env1 = c()
+AandB.env8 = c()
+AandB.env1AB = c()
+AandB.env8AB = c()
+#count2 = 1
+
+#needs fixing
+for (i in 1:(length(colm)-1)){
+  #print(i)
+  if (length(levels(avector.env1[[i]]))==5){
+    temp1AB = tapply(maindata.env1$Height,avector.env1[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env8[[i]]))==5){
+    temp8AB = tapply(maindata.env8$Height,avector.env8[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env1[[i]]))==4){
+    temp1AB = tapply(maindata.env1$Height, avector.env1[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env8[[i]]))==4){
+    temp8AB = tapply(maindata.env8$Height,avector.env8[[i]], mean)[3:4]
+  }
+  #=count2+1
+  AandB.env1AB = rbind(AandB.env1AB,temp1AB)
+  AandB.env8AB = rbind(AandB.env8AB,temp8AB)
+}
+temp1AB = tapply(maindata.env1$Height,avector.env1[[3235]], mean)[3:4]
+temp8AB = tapply(maindata.env8$Height,avector.env8[[3235]], mean)[3:4]
+AandB.env1AB = rbind(AandB.env1AB,temp1AB)
+AandB.env8AB = rbind(AandB.env8AB,temp8AB)
+temp1 = mean(maindata.env1$Height)
+temp8 = mean(maindata.env8$Height)
+AandB.env1AB = cbind.data.frame(colm,AandB.env1AB)
+AandB.env8AB = cbind.data.frame(colm,AandB.env8AB)
+AandB.env1AB = cbind.data.frame(AandB.env1AB,(AandB.env1AB[,2]-AandB.env1AB[,3]))
+AandB.env8AB = cbind.data.frame(AandB.env8AB,(AandB.env8AB[,2]-AandB.env8AB[,3]))
+
+
 
 
