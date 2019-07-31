@@ -1,4 +1,6 @@
-Height,Low.Water,Low.Nitrogen,Env,Pathogen,IDP3914,mmp177c,lim333,gpm662b,bnl5.46c,IDP2349,gpm296c,IDP574,umc1450,mmp46
+Height,Low.Water,Low.Nitrogen,Pathogen,Env,IDP3914,mmp177c,lim333,gpm662b,bnl5.46c,IDP2349,gpm296c,IDP574,umc1450,mmp46
+,,,,,1,7,7,7,7,4,7,7,7,7
+,,,,,238.65,5069.76,4950.64,5057.74,5065.66,3135.98,5057.95,5057.59,5070.96,5074.67
 71,0,0,0,1,A,-,B,A,A,A,A,A,A,A
 79,0,0,0,1,A,-,B,A,A,A,A,A,A,A
 48,0,0,0,1,A,-,B,A,A,A,A,A,A,A

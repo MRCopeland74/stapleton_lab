@@ -220,7 +220,7 @@ sub_data <- cbind.data.frame(Maindata$Height,Maindata$Low.Water,Maindata$Low.Nit
                              Maindata$Env,Maindata$IDP3914,Maindata$mmp177c,Maindata$lim333,Maindata$gpm662b,
                              Maindata$bnl5.46c,Maindata$IDP2349,Maindata$gpm296c,Maindata$IDP574,Maindata$umc1450,
                              Maindata$mmp46)
-col_headings <- c('Height','Low.Water','Low.Nitrogen','Env','Pathogen', 'IDP3914', 'mmp177c','lim333',
+col_headings <- c('Height','Low.Water','Low.Nitrogen','Pathogen','Env', 'IDP3914', 'mmp177c','lim333',
                   'gpm662b','bnl5.46c','IDP2349','gpm296c','IDP574','umc1450','mmp46')
 #sub_data <- as.data.frame(sub_data)
 names(sub_data) <- col_headings
@@ -238,8 +238,8 @@ vQTLsub <- drop.nullmarkers(vQTLsub)
 vQTLsub <- calc.genoprob(vQTLsub)
 
 sub.scan <- scanonevar(cross = vQTLsub,
-                       mean.formula = Height ~ Env + mean.QTL.add + Env*mean.QTL.add,
-                       var.formula = ~ Env + var.QTL.add + Env*var.QTL.add,
+                       mean.formula = Height ~ (Low.Water + Low.Nitrogen + Pathogen)*(mean.QTL.add),
+                       var.formula = ~ (Low.Water + Low.Nitrogen + Pathogen)*(var.QTL.add),
                        return.covar.effects = TRUE)
 
 write.csv(sub.scan$result, file = "sub_scan_results_int_LW.csv")
@@ -349,57 +349,225 @@ ggplot()+geom_point(data=fake,aes(x=Loci,y=LOD,color = "Trojan"), position = pos
 Maindata$Env = as.factor(Maindata$Env)
 
 maindata.env1 = Maindata[Maindata$Env == "1",]
+maindata.env2 = Maindata[Maindata$Env == "2",]
+maindata.env3 = Maindata[Maindata$Env == "3",]
+maindata.env4 = Maindata[Maindata$Env == "4",]
+maindata.env5 = Maindata[Maindata$Env == "5",]
+maindata.env6 = Maindata[Maindata$Env == "6",]
+maindata.env7 = Maindata[Maindata$Env == "7",]
 maindata.env8 = Maindata[Maindata$Env == "8",]
 
-avg.height.chr1AB <- tapply(maindata.chr$Height,maindata.chr$gpm27, mean)[4:5]
-avg.height.chr1 <- mean(maindata.chr$Height)
+##avg.height.chr1AB <- tapply(maindata.chr$Height,maindata.chr$gpm27, mean)[4:5]
+avg.height.chr1 <- mean(na.omit(Maindata$Height))
 
 count = 1
 avector.env1 = c()
+avector.env2 = c()
+avector.env3 = c()
+avector.env4 = c()
+avector.env5 = c()
+avector.env6 = c()
+avector.env7 = c()
 avector.env8 = c()
 for (i in colm){
  # print(i)
   avector.env1[count] <- as.vector(maindata.env1[i])
+  avector.env2[count] <- as.vector(maindata.env2[i])
+  avector.env3[count] <- as.vector(maindata.env3[i])
+  avector.env4[count] <- as.vector(maindata.env4[i])
+  avector.env5[count] <- as.vector(maindata.env5[i])
+  avector.env6[count] <- as.vector(maindata.env6[i])
+  avector.env7[count] <- as.vector(maindata.env7[i])
   avector.env8[count] <- as.vector(maindata.env8[i])
   count = count+1
 }
 
 
 AandB.env1 = c()
-AandB.env8 = c()
 AandB.env1AB = c()
+AandB.env2 = c()
+AandB.env2AB = c()
+AandB.env3 = c()
+AandB.env3AB = c()
+AandB.env4 = c()
+AandB.env4AB = c()
+AandB.env5 = c()
+AandB.env5AB = c()
+AandB.env6 = c()
+AandB.env6AB = c()
+AandB.env7 = c()
+AandB.env7AB = c()
+AandB.env8 = c()
 AandB.env8AB = c()
 #count2 = 1
 
-#needs fixing
+
 for (i in 1:(length(colm)-1)){
   #print(i)
   if (length(levels(avector.env1[[i]]))==5){
     temp1AB = tapply(maindata.env1$Height,avector.env1[[i]], mean)[4:5]
   }
-  if (length(levels(avector.env8[[i]]))==5){
-    temp8AB = tapply(maindata.env8$Height,avector.env8[[i]], mean)[4:5]
-  }
   if (length(levels(avector.env1[[i]]))==4){
     temp1AB = tapply(maindata.env1$Height, avector.env1[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env2[[i]]))==5){
+    temp2AB = tapply(maindata.env2$Height,avector.env2[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env2[[i]]))==4){
+    temp2AB = tapply(maindata.env2$Height, avector.env2[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env3[[i]]))==5){
+    temp3AB = tapply(maindata.env3$Height,avector.env3[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env3[[i]]))==4){
+    temp3AB = tapply(maindata.env3$Height, avector.env3[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env4[[i]]))==5){
+    temp4AB = tapply(maindata.env4$Height,avector.env4[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env4[[i]]))==4){
+    temp4AB = tapply(maindata.env4$Height, avector.env4[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env5[[i]]))==5){
+    temp5AB = tapply(maindata.env5$Height,avector.env5[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env5[[i]]))==4){
+    temp5AB = tapply(maindata.env5$Height, avector.env5[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env6[[i]]))==5){
+    temp6AB = tapply(maindata.env6$Height,avector.env6[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env6[[i]]))==4){
+    temp6AB = tapply(maindata.env6$Height, avector.env6[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env7[[i]]))==5){
+    temp7AB = tapply(maindata.env7$Height,avector.env7[[i]], mean)[4:5]
+  }
+  if (length(levels(avector.env7[[i]]))==4){
+    temp7AB = tapply(maindata.env7$Height, avector.env7[[i]], mean)[3:4] 
+  }
+  if (length(levels(avector.env8[[i]]))==5){
+    temp8AB = tapply(maindata.env8$Height,avector.env8[[i]], mean)[4:5]
   }
   if (length(levels(avector.env8[[i]]))==4){
     temp8AB = tapply(maindata.env8$Height,avector.env8[[i]], mean)[3:4]
   }
   #=count2+1
   AandB.env1AB = rbind(AandB.env1AB,temp1AB)
+  AandB.env2AB = rbind(AandB.env2AB,temp2AB)
+  AandB.env3AB = rbind(AandB.env3AB,temp3AB)
+  AandB.env4AB = rbind(AandB.env4AB,temp4AB)
+  AandB.env5AB = rbind(AandB.env5AB,temp5AB)
+  AandB.env6AB = rbind(AandB.env6AB,temp6AB)
+  AandB.env7AB = rbind(AandB.env7AB,temp7AB)
   AandB.env8AB = rbind(AandB.env8AB,temp8AB)
 }
 temp1AB = tapply(maindata.env1$Height,avector.env1[[3235]], mean)[3:4]
+temp2AB = tapply(maindata.env2$Height,avector.env2[[3235]], mean)[3:4]
+temp3AB = tapply(maindata.env3$Height,avector.env3[[3235]], mean)[3:4]
+temp4AB = tapply(maindata.env4$Height,avector.env4[[3235]], mean)[3:4]
+temp5AB = tapply(maindata.env5$Height,avector.env5[[3235]], mean)[3:4]
+temp6AB = tapply(maindata.env6$Height,avector.env6[[3235]], mean)[3:4]
+temp7AB = tapply(maindata.env7$Height,avector.env7[[3235]], mean)[3:4]
 temp8AB = tapply(maindata.env8$Height,avector.env8[[3235]], mean)[3:4]
 AandB.env1AB = rbind(AandB.env1AB,temp1AB)
+AandB.env2AB = rbind(AandB.env2AB,temp2AB)
+AandB.env3AB = rbind(AandB.env3AB,temp3AB)
+AandB.env4AB = rbind(AandB.env4AB,temp4AB)
+AandB.env5AB = rbind(AandB.env5AB,temp5AB)
+AandB.env6AB = rbind(AandB.env6AB,temp6AB)
+AandB.env7AB = rbind(AandB.env7AB,temp7AB)
 AandB.env8AB = rbind(AandB.env8AB,temp8AB)
 temp1 = mean(maindata.env1$Height)
+temp2 = mean(maindata.env2$Height)
+temp3 = mean(maindata.env3$Height)
+temp4 = mean(maindata.env4$Height)
+temp5 = mean(maindata.env5$Height)
+temp6 = mean(maindata.env6$Height)
+temp7 = mean(maindata.env7$Height)
 temp8 = mean(maindata.env8$Height)
 AandB.env1AB = cbind.data.frame(colm,AandB.env1AB)
+AandB.env1AB = cbind.data.frame(AandB.env1AB,abs((AandB.env1AB[,2]-AandB.env1AB[,3])))
+AandB.env2AB = cbind.data.frame(colm,AandB.env2AB)
+AandB.env2AB = cbind.data.frame(AandB.env2AB,abs((AandB.env2AB[,2]-AandB.env2AB[,3])))
+AandB.env3AB = cbind.data.frame(colm,AandB.env3AB)
+AandB.env3AB = cbind.data.frame(AandB.env3AB,abs((AandB.env3AB[,2]-AandB.env3AB[,3])))
+AandB.env4AB = cbind.data.frame(colm,AandB.env4AB)
+AandB.env4AB = cbind.data.frame(AandB.env4AB,abs((AandB.env4AB[,2]-AandB.env4AB[,3])))
+AandB.env5AB = cbind.data.frame(colm,AandB.env5AB)
+AandB.env5AB = cbind.data.frame(AandB.env5AB,abs((AandB.env5AB[,2]-AandB.env5AB[,3])))
+AandB.env6AB = cbind.data.frame(colm,AandB.env6AB)
+AandB.env6AB = cbind.data.frame(AandB.env6AB,abs((AandB.env6AB[,2]-AandB.env6AB[,3])))
+AandB.env7AB = cbind.data.frame(colm,AandB.env7AB)
+AandB.env7AB = cbind.data.frame(AandB.env7AB,abs((AandB.env7AB[,2]-AandB.env7AB[,3])))
 AandB.env8AB = cbind.data.frame(colm,AandB.env8AB)
-AandB.env1AB = cbind.data.frame(AandB.env1AB,(AandB.env1AB[,2]-AandB.env1AB[,3]))
-AandB.env8AB = cbind.data.frame(AandB.env8AB,(AandB.env8AB[,2]-AandB.env8AB[,3]))
+AandB.env8AB = cbind.data.frame(AandB.env8AB,abs((AandB.env8AB[,2]-AandB.env8AB[,3])))
+
+names(AandB.env1AB) = c("Gene","A","B","Difference")
+names(AandB.env2AB) = c("Gene","A","B","Difference")
+names(AandB.env3AB) = c("Gene","A","B","Difference")
+names(AandB.env4AB) = c("Gene","A","B","Difference")
+names(AandB.env5AB) = c("Gene","A","B","Difference")
+names(AandB.env6AB) = c("Gene","A","B","Difference")
+names(AandB.env7AB) = c("Gene","A","B","Difference")
+names(AandB.env8AB) = c("Gene","A","B","Difference")
+sum.env <- AandB.env1AB$Difference + AandB.env2AB$Difference + AandB.env3AB$Difference +
+  AandB.env4AB$Difference + AandB.env5AB$Difference + AandB.env6AB$Difference + 
+  AandB.env7AB$Difference + AandB.env8AB$Difference
+sum.env = cbind.data.frame(AandB.env1AB$Gene, sum.env)
+names(sum.env)=c("Gene","Sum/env")
+sum.env.top10 = sum.env[order(sum.env[,"Sum/env"],decreasing = TRUE)[1:10],]
+
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------Number A and B per row--------------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+
+num.AandB.row = cbind.data.frame(Maindata$Height, Maindata$Env,rowSums(Maindata == "A"),
+                                 rowSums(Maindata == "B"), rowSums(Maindata=="-"))
+num.AandB.row = na.omit(num.AandB.row)
+names(num.AandB.row) = c("Height", "Env", "A","B","-")
+temp.env = num.AandB.row$Env[1]
+temp.A = num.AandB.row$A[1]
+temp.B = num.AandB.row$B[1]
+temp.H = num.AandB.row$`-`[1]
+count = 0
+height.avg = 0
+num.AandB.row.avg = c()
+for (i in 1:6672){
+  print("school")
+  if (temp.env == num.AandB.row$Env[i] && temp.A == num.AandB.row$A[i] && 
+      temp.B == num.AandB.row$B[i] && temp.H == num.AandB.row$`-`[i]){
+    height.avg = height.avg + num.AandB.row$Height[i]
+    count = count + 1
+    print(height.avg)
+  }else{
+    temp.row = cbind.data.frame(height.avg/count, temp.env, temp.A, temp.B, temp.H)
+    num.AandB.row.avg = rbind.data.frame(num.AandB.row.avg, temp.row)
+    temp.row = c()
+    temp.env = num.AandB.row$Env[i]
+    temp.A = num.AandB.row$A[i]
+    temp.B = num.AandB.row$B[i]
+    temp.H = num.AandB.row$`-`[i]
+    count = 1
+    height.avg = num.AandB.row$Height[i]
+    print(temp.env)
+  }
+}
+temp.row = cbind.data.frame(height.avg/count, temp.env, temp.A, temp.B, temp.H)
+num.AandB.row.avg = rbind.data.frame(num.AandB.row.avg, temp.row)
+plot(num.AandB.row.avg$temp.A, num.AandB.row.avg$`height.avg/count`)
+plot(num.AandB.row.avg$temp.B, num.AandB.row.avg$`height.avg/count`)
+plot(num.AandB.row.avg$temp.H, num.AandB.row.avg$`height.avg/count`)
+
+
+
+
+
+
+
+
 
 
 

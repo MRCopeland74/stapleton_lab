@@ -49,17 +49,19 @@ print("before scanonevar")
 #Height ~ Env + mean.QTL.add + mean.QTL.dom + (mean.QTL.add * mean.QTL.dom)
 #~ Env + var.QTL.add + var.QTL.dom + (var.QTL.add * var.QTL.dom)
 
-intall <- scanonevar(cross = fr,
-                  mean.formula = Height ~ (Low.Water + Low.Nitrogen + Pathogen)*(mean.QTL.add),
-                  var.formula = ~ (Low.Water + Low.Nitrogen + Pathogen)*(var.QTL.add),
-                  return.covar.effects = TRUE)
-print("interactive ALL scanonevar")
+#intall <- scanonevar(cross = fr,
+ #                 mean.formula = Height ~ (Low.Water + Low.Nitrogen + Pathogen)*(mean.QTL.add),
+#                  var.formula = ~ (Low.Water + Low.Nitrogen + Pathogen)*(var.QTL.add),
+ #                 return.covar.effects = TRUE)
+#print("interactive ALL scanonevar")
+scan1 <- scanone(cross = fr)
+
 # Writing the result of the interactive scanonevar for later use
-write_rds(intall, "intall.rds", compress = "xz")
+write_rds(scan1, "scan1.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(intall$result, file = "intall.csv")
+write.csv(scan1$result, file = "scan1.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
