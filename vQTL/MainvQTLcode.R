@@ -61,7 +61,7 @@ write_rds(scan1, "scan1.rds", compress = "xz")
 
 # Writing out the results of the two 
 #write.csv(addOneVar$result, file = "Manching_additive_model.csv")
-write.csv(scan1$result, file = "scan1.csv")
+write.csv(scan1, file = "scan1.csv")
 
 #plot(intOneVar, tests_to_plot = "mQTL", chrs = "1")
 
