@@ -52,7 +52,11 @@ top10 <- diffAB[order(diffAB[,"AandB"], decreasing = TRUE)[1:10],]
 top10abs <- diffABabs[order(diffABabs[,"AandBabs"], decreasing = TRUE)[1:10],]
 top10both <- cbind(top10,top10abs)
 
-#Boxplot code
+#----------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------------#
+#-------------------------------------------Boxplot code---------------------------------------#
+#----------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------------#
 genet10 = top10[,2]
 p = c()
 count3 = 1
@@ -64,8 +68,11 @@ count = count+1
 Maindata <- Maindata[-c(1, 2), ]
 boxplot(Maindata$Height~droplevels(Maindata$bnl5.46c, exclude = '-',))
 
-
-#Simulated data with every possible combinantion of environment with gene
+#----------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------------#
+#---------Simulated data with every possible combinantion of environment with gene-------------#
+#----------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------------#
 a = 60
 Env = c(1,2,3,4,5,6,7,8)
 lw = c(0,1)
@@ -199,7 +206,16 @@ pos <- c("", "", "", "",0.3,0.6,0.8,1.3,1.4,1.6,1.9,2.4,2.5,2.7)
 chrompos <- rbind(chro,pos)
 Height.all.cross <- rbind(chrompos,Height.all)
 Height.all.cross <- as.data.frame(Height.all.cross)
+
+#----------------------------------Box PLot---------------------------------------------#
+boxplot.simulated = c()
+Height.all = as.data.frame(Height.all)
+for (i in c(5:14)){
+  boxplot.simulated[i-4]=boxplot(as.numeric(Height.all$Height)~droplevels(Height.all[,i]))
+}
+#---------------------------------------------------------------------------------------#
 write_csv(Height.all.cross, "heightall_cross.csv")
+
 
 vQTLsim <- read.cross(file = "heightall_cross.csv" )
 vQTLsim <- drop.nullmarkers(vQTLsim)
@@ -212,7 +228,7 @@ sim.scan <- scanonevar(cross = vQTLsim,
 
 write.csv(sim.scan$result, file = "sim_scan_results_add(minus).csv")
 
-sim.scan1 <- scanone(cross = vQTLsim)
+sim.scan1 <- scanone(cross = vQTLsim, intcovar = lwc)
 
 #using the significant genomes
 #sub_data < c()
@@ -244,7 +260,7 @@ sub.scan <- scanonevar(cross = vQTLsub,
 
 write.csv(sub.scan$result, file = "sub_scan_results_int_LW.csv")
 
-sub.scan1 <- scanone(cross = vQTLsub)
+sub.scan1 <- scanone(cross = vQTLsub, intcovar = 7)
 
 #subandheight_data <- cbind.data.frame(Height.all.cross,sub_datasub_data[5:14])
 G1f = c()
@@ -358,7 +374,7 @@ maindata.env7 = Maindata[Maindata$Env == "7",]
 maindata.env8 = Maindata[Maindata$Env == "8",]
 
 ##avg.height.chr1AB <- tapply(maindata.chr$Height,maindata.chr$gpm27, mean)[4:5]
-avg.height.chr1 <- mean(na.omit(Maindata$Height))
+#avg.height.chr1 <- mean(na.omit(Maindata$Height))
 
 count = 1
 avector.env1 = c()
@@ -486,21 +502,31 @@ temp5 = mean(maindata.env5$Height)
 temp6 = mean(maindata.env6$Height)
 temp7 = mean(maindata.env7$Height)
 temp8 = mean(maindata.env8$Height)
+
+
 AandB.env1AB = cbind.data.frame(colm,AandB.env1AB)
+AandB.env1 = cbind.data.frame(AandB.env1AB,(AandB.env1AB[,2]-AandB.env1AB[,3]))
 AandB.env1AB = cbind.data.frame(AandB.env1AB,abs((AandB.env1AB[,2]-AandB.env1AB[,3])))
 AandB.env2AB = cbind.data.frame(colm,AandB.env2AB)
+AandB.env2 = cbind.data.frame(AandB.env2AB,(AandB.env2AB[,2]-AandB.env2AB[,3]))
 AandB.env2AB = cbind.data.frame(AandB.env2AB,abs((AandB.env2AB[,2]-AandB.env2AB[,3])))
 AandB.env3AB = cbind.data.frame(colm,AandB.env3AB)
+AandB.env3 = cbind.data.frame(AandB.env3AB,(AandB.env3AB[,2]-AandB.env3AB[,3]))
 AandB.env3AB = cbind.data.frame(AandB.env3AB,abs((AandB.env3AB[,2]-AandB.env3AB[,3])))
 AandB.env4AB = cbind.data.frame(colm,AandB.env4AB)
+AandB.env4 = cbind.data.frame(AandB.env4AB,(AandB.env4AB[,2]-AandB.env4AB[,3]))
 AandB.env4AB = cbind.data.frame(AandB.env4AB,abs((AandB.env4AB[,2]-AandB.env4AB[,3])))
 AandB.env5AB = cbind.data.frame(colm,AandB.env5AB)
+AandB.env5 = cbind.data.frame(AandB.env5AB,(AandB.env5AB[,2]-AandB.env5AB[,3]))
 AandB.env5AB = cbind.data.frame(AandB.env5AB,abs((AandB.env5AB[,2]-AandB.env5AB[,3])))
 AandB.env6AB = cbind.data.frame(colm,AandB.env6AB)
+AandB.env6 = cbind.data.frame(AandB.env6AB,(AandB.env6AB[,2]-AandB.env6AB[,3]))
 AandB.env6AB = cbind.data.frame(AandB.env6AB,abs((AandB.env6AB[,2]-AandB.env6AB[,3])))
 AandB.env7AB = cbind.data.frame(colm,AandB.env7AB)
+AandB.env7 = cbind.data.frame(AandB.env7AB,(AandB.env7AB[,2]-AandB.env7AB[,3]))
 AandB.env7AB = cbind.data.frame(AandB.env7AB,abs((AandB.env7AB[,2]-AandB.env7AB[,3])))
 AandB.env8AB = cbind.data.frame(colm,AandB.env8AB)
+AandB.env8 = cbind.data.frame(AandB.env8AB,(AandB.env8AB[,2]-AandB.env8AB[,3]))
 AandB.env8AB = cbind.data.frame(AandB.env8AB,abs((AandB.env8AB[,2]-AandB.env8AB[,3])))
 
 names(AandB.env1AB) = c("Gene","A","B","Difference")
@@ -511,6 +537,15 @@ names(AandB.env5AB) = c("Gene","A","B","Difference")
 names(AandB.env6AB) = c("Gene","A","B","Difference")
 names(AandB.env7AB) = c("Gene","A","B","Difference")
 names(AandB.env8AB) = c("Gene","A","B","Difference")
+
+names(AandB.env1) = c("Gene","A","B","Difference")
+names(AandB.env2) = c("Gene","A","B","Difference")
+names(AandB.env3) = c("Gene","A","B","Difference")
+names(AandB.env4) = c("Gene","A","B","Difference")
+names(AandB.env5) = c("Gene","A","B","Difference")
+names(AandB.env6) = c("Gene","A","B","Difference")
+names(AandB.env7) = c("Gene","A","B","Difference")
+names(AandB.env8) = c("Gene","A","B","Difference")
 sum.env <- AandB.env1AB$Difference + AandB.env2AB$Difference + AandB.env3AB$Difference +
   AandB.env4AB$Difference + AandB.env5AB$Difference + AandB.env6AB$Difference + 
   AandB.env7AB$Difference + AandB.env8AB$Difference
@@ -562,6 +597,31 @@ plot(num.AandB.row.avg$temp.B, num.AandB.row.avg$`height.avg/count`)
 plot(num.AandB.row.avg$temp.H, num.AandB.row.avg$`height.avg/count`)
 
 
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------Percentage of genes per chromosone--------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+Maindata.t = t(Maindata)
+Maindata.t = as.data.frame(Maindata.t)
+Maindata.t = table(Maindata.t$V1)
+perc.chrom <- Maindata.t/3235
+Maindata.t = cbind.data.frame(Maindata.t, perc.chrom)
+
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------Crossover from 2-3 top 10-----------------------------------#
+#---------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------#
+Difference.big = cbind.data.frame(AandB.env2$Gene,abs(AandB.env2$Difference - AandB.env3$Difference))
+A.big = cbind.data.frame(AandB.env2$Gene,abs(AandB.env2$A - AandB.env3$A))
+B.big = cbind.data.frame(AandB.env2$Gene,abs(AandB.env2$B - AandB.env3$B))
+names(Difference.big)=c("Gene", "Difference2to3")
+names(A.big)=c("Gene", "A2to3")
+names(B.big)=c("Gene", "B2to3")
+Difference.big.ten = Difference.big[order(Difference.big[,"Difference2to3"],decreasing = TRUE)[1:10],]
+A.big.ten = A.big[order(A.big[,"A2to3"],decreasing = TRUE)[1:10],]
+B.big.ten = B.big[order(B.big[,"B2to3"],decreasing = TRUE)[1:10],]
 
 
 
