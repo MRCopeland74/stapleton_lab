@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Austin Gratton and Michael Copeland">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Getting Started With High Performance Computing - vQTL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Getting Started With High Performance Computing";
+    var mkdocs_page_input_path = "Using HPC.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> vQTL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Project%20Overview/">Project Overview</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WorkFlow</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20R/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data/">Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../vQTL%20Analysis/">vQTL Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../qPCR%20Analysis/">qPCR Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Workflow/">Workflow</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Getting Started With High Performance Computing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#why-hpc">Why HPC?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#necessary-accounts">Necessary Accounts</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cyverse">Cyverse</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#xsedetacc">XSEDE/TACC</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20GitHub/">Introduction to GitHub and Project Set-up</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Jobs%20on%20HPC/">Jobs on HPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Launcher%20Module/">Launcher Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reminders%20and%20Useful%20Commands/">Reminders and Useful Commands</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Updating%20the%20Docs/">Updating the Docs</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">vQTL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Getting Started With High Performance Computing</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/Using HPC.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="hpc-high-performance-computers-summary">HPC (High Performance Computers) Summary</h1>
+<p>As discussed in the Scanonevar.perm section, some functions when running giant data sets cannot be run on a home computer. Therefore, they need to be sent to an HPC. We use the TACC (Texas Advanced Computing Center). We are able to login to the HPC remotely and send files via githup to the HPC. We setup a github in the HPC and then our own Github then pull and push</p>
+<h2 id="why-hpc">Why HPC?</h2>
+<p>Sometimes data can get so complex or large that a personal computer is no longer a viable option to run the analysis. Luckily there are high performance computing clusters available which cater to different requirements, from raw CPU or GPU power to large memory needs. These clusters can be utilized to handle analyses using R, Python, or other languages. The National Science Foundation has partnered with universities and organizations around the country to create HPC clusters for students at universities to freely use (in moderation) via <a href="https://www.xsede.org">XSEDE</a>.</p>
+<h2 id="necessary-accounts">Necessary Accounts</h2>
+<p>There are a couple platforms essential to the mission of the EnviroTyping research, namely Cyverse and XSEDE/TACC. You will be asked to create an account on both platforms.</p>
+<h3 id="cyverse">Cyverse</h3>
+<p>Cyverse is an initiative led by the University of Arizona to improve how data is stored and shared amongst researchers. You may read more about its mission <a href="http://www.cyverse.org/about">here</a> and create an account on <a href="https://user.cyverse.org/register">this page</a>.</p>
+<h3 id="xsedetacc">XSEDE/TACC</h3>
+<p>XSEDE is a virtual organization that serves to connect researchers to resources necessary to navigate the shear amount of data in the modern age. More background information is found on their <a href="https://www.xsede.org/about/what-we-do">About</a> page. Create an account <a href="https://portal.xsede.org/?p_p_id=58&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;saveLastPath=0&amp;_58_struts_action=%2Flogin%2Fcreate_account">here</a>. An XSEDE account will allow you to access any resource in the XSEDE network.</p>
+<p>Likewise, one such resource is the Texas Advanced Computing Center (TACC). As with the previously mentioned programs, more information is found on their <a href="https://www.tacc.utexas.edu/about/overview">About</a> page. TACC holds the tools used to complete jobs too large to run on personal or local machines (such as the PReMiuM profile regressions discussed in the "Workflow" section of this ReadtheDocs). Specifically, you will most likely utilize the new Stampede2 servers. However, you must first create an
+<a href="https://portal.tacc.utexas.edu/account-request?p_p_id=createaccount_WAR_createaccountportlet&amp;p_p_lifecycle=1&amp;p_p_state=normal&amp;p_p_mode=view&amp;p_p_col_id=column-1&amp;p_p_col_count=1&amp;_createaccount_WAR_createaccountportlet_action=continue">account</a>. It is encouraged you carefully read each page in the creation process thoroughly because TACC tends to be strict in its allocation of compute resources, and the more you know in the beginning the more it will help in the long run. We will discuss how to properly use Stampede2 in more detail, but feel free to briefly peruse its <a href="https://portal.tacc.utexas.edu/user-guides/stampede2">User Guide</a> once your account is created.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Using%20GitHub/" class="btn btn-neutral float-right" title="Introduction to GitHub and Project Set-up">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Workflow/" class="btn btn-neutral" title="Workflow"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../Workflow/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Using%20GitHub/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

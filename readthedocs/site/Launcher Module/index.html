@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Austin Gratton and Michael Copeland">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Launcher Module - vQTL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Launcher Module";
+    var mkdocs_page_input_path = "Launcher Module.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> vQTL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Project%20Overview/">Project Overview</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WorkFlow</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20R/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data/">Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../vQTL%20Analysis/">vQTL Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../qPCR%20Analysis/">qPCR Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Workflow/">Workflow</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20HPC/">Getting Started With High Performance Computing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20GitHub/">Introduction to GitHub and Project Set-up</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Jobs%20on%20HPC/">Jobs on HPC</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Launcher Module</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loading-launcher">Loading Launcher</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#neccessary-files">Neccessary Files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#modify-launcherslurm">Modify launcher.slurm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generate-some-data">Generate Some Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#submit-the-jobs">Submit the Jobs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wrap-up">Wrap-up</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#references">References</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reminders%20and%20Useful%20Commands/">Reminders and Useful Commands</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Updating%20the%20Docs/">Updating the Docs</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">vQTL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Launcher Module</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/Launcher Module.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="launcher-tutorial">Launcher Tutorial</h1>
+<p>Launcher is a utility for performing simple, data parallel, high throughput computing (HTC) workflows on clusters, massively parallel processor (MPP) systems, workgroups of computers, and personal machines. <code>Wilson:2014:LSF:2616498.2616533</code></p>
+<p>This tutorial is assuming the use of the launcher module found in the TACC Lmod's and some familiarity with TACC HPC systems.</p>
+<h2 id="purpose">Purpose</h2>
+<p>There are many types of jobs for running with the <strong>launcher</strong> module but for the scope of this tutorial we are going to practice with R scripts. You are going to generate some random datasets with R and print them to csv files. Then you will create a launcher file to run 100 jobs on 10 nodes.  Finally you will use the <strong>launcher</strong> module to run all 100 jobs with very little typing involved.</p>
+<h2 id="loading-launcher">Loading Launcher</h2>
+<p>Login to one of the TACC systems such as Stampede2.</p>
+<p><code>ssh username@stampede2.tacc.utexas.edu</code></p>
+<p>This logs you into your <code>$HOME</code> directory.  We typically run analysis in the <code>$WORK</code> directory.</p>
+<p>Just type following to move to your <code>$WORK</code> directory <code>cdw</code>.</p>
+<p>To see the modules you currently have loaded:</p>
+<p><code>module list</code></p>
+<p>To load the launcher module if not listed in the output:</p>
+<p><code>module load launcher</code></p>
+<p>You can optionally save the launcher module as a default every time you login to the system:</p>
+<p><code>module list</code> confirm launcher is loaded then: <code>module save</code></p>
+<p>We also need to use the Rstats module.</p>
+<p><code>module load Rstats</code></p>
+<h2 id="neccessary-files">Neccessary Files</h2>
+<p>You need to copy 4 files to use this tutorial:
+* <em>randcsvGen.R</em> - This is an Rscript that randomly generates 100 csv files using the mtcars dataset.
+* <em>launcherFile.sh</em> - This bash script will parse all the csv filenames into an array and return them to <em>launcherFile</em>.  <em>launcherFile</em> is a list of  Rscript command line arguments to run each job.
+* <em>launcher.slurm</em> - This is the file which actually batches the jobs to different HPC nodes.
+* <em>headDF.R</em> - A simple R script which prints the top of the dataset read in from each csv file.</p>
+<p>All these files should be in the same directory in your <code>$WORK</code> directory.</p>
+<h2 id="modify-launcherslurm">Modify launcher.slurm</h2>
+<p>Set <code>LAUNCHER_JOB_FILE</code> to point to your job file. We are going to use Vim, a built-in editor.</p>
+<p>Type <code>vim launcher.slurm</code></p>
+<p>Type <code>i</code> and the prompt at the bottom will say <code>Insert</code>.
+Use your arrow keys and change <code>&lt;path_to_directory&gt;</code> to the directory you are currently in, which is the <code>$WORK</code> directory if you did not place the files somewhere else. Change <code>&lt;allocation&gt;</code> to your group's allocation for the system.
+m
+Then hit <code>Esc</code> and type <code>:wq</code> which tells Vim to save and quit.</p>
+<h2 id="generate-some-data">Generate Some Data</h2>
+<p>The first file you will run is the <em>launcherFile.sh</em>.  This will run the R script to generate the csv files and created your <em>launcherFile</em>.</p>
+<p>Type <code>chmod +x launcherFile.sh</code> to give your user permission to execute.</p>
+<p>Then type <code>./launcherFile.sh</code></p>
+<p>This might take a few minutes to install the required R packages generating a lot of output in the terminal.</p>
+<p>You will have 3 new directorys created:
+* <em>randcsv/</em> - This is where all the random csv files are stored.
+* <em>output/</em> - For the results from the analysis.
+* <em>error/</em> - There will be some general warnings that are read as error by R.</p>
+<p>The <em>launcherFile</em> should also be in your current directory now as well.</p>
+<h2 id="submit-the-jobs">Submit the Jobs</h2>
+<p>Your ready to submit your batch of 100 jobs.</p>
+<p>Type <code>sbatch launcher.slurm</code></p>
+<p>A new file will be created for the job:  <em>slurm-job##.out</em></p>
+<p>You can check the status of your jobs.</p>
+<p><code>squeue -u &lt;username&gt;</code></p>
+<p>When the jobs are done you should have 100 files in the <em>output/</em> and <em>error/</em> directories.  Remember you can use Vim if you want to open the file or <code>cat &lt;filename&gt;</code> to peak inside.</p>
+<h2 id="wrap-up">Wrap-up</h2>
+<p>Again you can you <strong>launcher</strong> to run jobs with python or Agave apps among many other uses.  Hopefully you now have some understanding how to use the <strong>launcher</strong> module to batch many jobs at once.</p>
+<h4 id="references">References</h4>
+<p>https://github.com/TACC/launcher#referencing-launcher</p>
+<p>https://portal.tacc.utexas.edu/user-guides/stampede2#using-modules-to-manage-your-environment</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Reminders%20and%20Useful%20Commands/" class="btn btn-neutral float-right" title="Reminders and Useful Commands">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Jobs%20on%20HPC/" class="btn btn-neutral" title="Jobs on HPC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../Jobs%20on%20HPC/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Reminders%20and%20Useful%20Commands/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
