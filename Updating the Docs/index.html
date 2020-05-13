@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Austin Gratton and Michael Copeland">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Updating the Docs - vQTL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Updating the Docs";
+    var mkdocs_page_input_path = "Updating the Docs.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> vQTL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Project%20Overview/">Project Overview</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WorkFlow</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20R/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data/">Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../vQTL%20Analysis/">vQTL Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../qPCR%20Analysis/">qPCR Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Workflow/">Workflow</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20HPC/">Getting Started With High Performance Computing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20GitHub/">Introduction to GitHub and Project Set-up</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Jobs%20on%20HPC/">Jobs on HPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Launcher%20Module/">Launcher Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reminders%20and%20Useful%20Commands/">Reminders and Useful Commands</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Updating the Docs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#accessing-the-source">Accessing the source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#forking-committing-changes">Forking &amp; Committing Changes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it Works</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">vQTL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Updating the Docs</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/Updating the Docs.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="updating-the-docs">Updating the Docs</h1>
+<p>Updating the documentation is easy and should be done as users discover useful tips and tricks along their own workflows. All documentation is stored on GitHub in plain-text at <a href="https://github.com/TACC/EnviroTyping/tree/master/md_doc_files/md_files">EnviroTyping Docs</a>.</p>
+<h2 id="accessing-the-source">Accessing the source</h2>
+<p>Make a working copy of the documentation.</p>
+<p><strong>Using command line via terminal</strong></p>
+<p>From your working directory, download the project from GitHub::</p>
+<p><code>git clone https://github.com/TACC/EnviroTyping.git</code></p>
+<p>After a change has been made to the master repository, <a href="https://readthedocs.org">ReadtheDocs</a> automatically builds fresh html documentation hosted on their servers.</p>
+<p><strong>Using a desktop web browser</strong></p>
+<p>Browse to <a href="https://github.com/TACC/EnviroTyping">EnviroTyping Project on GitHub</a> and click "Clone or Download" at the right. You can use the <a href="https://desktop.github.com/">GitHub desktop app</a> or work with the compressed folder using the text editor of your choice. For comprehensive edits you may wish to use the <a href="https://atom.io">Atom Editor</a> with the markdown preview package enabled with the documentation directory selected as your project folder.</p>
+<p>For more on MkDocs / Read the Docs, see:</p>
+<ul>
+<li><a href="http://www.mkdocs.org/#getting-started">MkDocs - Getting Started</a></li>
+<li><a href="http://docs.readthedocs.io/en/latest/">ReadtheDocs Instructions</a></li>
+</ul>
+<h2 id="forking-committing-changes">Forking &amp; Committing Changes</h2>
+<p>Follow the standard git commit process to request changes. For a full introduction see:</p>
+<ul>
+<li><a href="https://help.github.com/articles/fork-a-repo/">Fork a Repo</a></li>
+<li><a href="https://yangsu.github.io/pull-request-tutorial/">Pull request tutorial</a></li>
+<li><a href="http://swcarpentry.github.io/git-novice/">Git Novie</a></li>
+</ul>
+<p>In short, you'll want to create a fork of the repository from the terminal or the GitHub project's website. The repository includes markdown source files which previewing in html on your own machine. Once you've finished with your proposed changes, add &amp; commit the changes to your fork &amp; open a pull request to the master branch at TACC/EnviroTyping/docs.</p>
+<h2 id="how-it-works">How it Works</h2>
+<p>MkDocs is a fast, simple and downright gorgeous static site generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file.</p>
+<p>Contact azg5169@uncw.edu</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../Reminders%20and%20Useful%20Commands/" class="btn btn-neutral" title="Reminders and Useful Commands"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../Reminders%20and%20Useful%20Commands/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
