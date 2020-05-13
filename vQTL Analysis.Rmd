@@ -1,0 +1,171 @@
+---
+title: "Welcome to the Documentation on vQTL Analysis"
+author: "Michael Copeland, Austin Gratton"
+date: "04/04/2020"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## vQTL Analysis
+Better tools to analyze the varying genes interacting with particular phenotypes.
+
+## Core Contributers
+* Ann E. Stapleton : University of North Carolina Wilmington Department of Biology and Marine Biology
+* Robert Corty : 
+* Yishi Wang : University of North Carolina Wilmington Department of Mathematics and Statistics
+
+## Student Contributers
+* Austin Gratton : University of North Carolina Wilmington
+  + azg5169@uncw.edu
+  + grattonauz@gmail.com
+* Michael Copeland : University of North Carolina Wilmington
+  + mrc5353@uncw.edu
+  + michaelrcopeland74@gmail.com
+  
+## Purpose
+
+Better combinations of genes within corn crops due to genetic modification can result in a better harvest. These combinations of genes can further be altered to maximize the harvest in various environment conditions such as low rainfall/poor irrigation, low nitrogen levels, or with the presence of a pathogen or in almagamation of these factors. Farmers can assess the environmental conditions and thus, determine the most favorable genotype to grow in their landscape for the best crop yield.
+
+## Reference
+
+Need references
+
+# Project Overview & Scope
+
+## Standards and Methods
+
+[Click here](http://www.genomes2fields.org/docs/Genomes_to_Fields_Phenotype_Handbook.pdf to download) for Genomes to Fields phenotyping handbook guidelines
+
+## Number of Tests Conducted
+
+ ```{r, echo = FALSE, results = 'asis'}
+ library(knitr)
+ Year = c(2014,2015,2016,2017,2018,2019)
+ qPCR = c(1,1,1,1,1,1)
+ vQTL = c(1,1,1,1,1,1)
+ tests = cbind(Year, qPCR, vQTL)
+ kable(tests)
+ ```
+
+## 2014 Experiment
+put text here
+
+## 2015 Experiment
+put text here
+
+## 2016 Experiment
+put text here
+
+## 2017 Experiment
+put text here
+
+## 2018 Experiment
+put text here
+
+## 2019 Experiment
+put text here
+
+# Data Collected 
+
+## qPCR Data
+Not sure what this looks like
+
+## vQTL Data
+The data we used for the vQTL data was all in one csv file known as the Manching Stress Product Data. This file conatained a phenotype which is the height of the corn crop. There are 8 columns of different environment combinations of low water, low nitrogen, or presence of a pathogen. There is an environment column numbering the different combinations from 1-8. These combinations are either 1 or 0.  Then there is 3235 columns of different gene names. These are either A, B or NA. The for the rows we have a row indicating the chromosones that the genes are on. There are 10 different chromosones. There is another row that indicates the distance the gene is on the chromosone. The next 6672 rows are different tests with varying gene combinations and varying envronmental combinations. The data is very similar however not the same for each environmental combination, and for some environmental combinations more tests have been done.
+
+# qPCR Analysis
+
+## Introduction
+
+## Other headers
+
+## Outputs
+
+## Plots
+
+# vQTL Analysis and Scanonevar function
+
+## Introduction
+
+The goal of the vQTL analysis is to run vQTL using the scanonevar functionon on the set of data of corn crops. This process will give the LODs and p-values of each respective gene for the mean, variance and mean-variance. The high LODs or low p-values are the genes that are most significant and most useful to the project.
+
+## Scanonevar Function
+
+The Scanonevar function was developed by Robert Corty and is am extension of the Scanone function. It has the main goal of cross examining large data bases to to determine LODs and P-Values. The scanone function can easily be run on a local computer while the scanonevar function can take hours to run.
+
+### Interactive model
+
+For our project we need the interactive model. The additive model, y = b0+b1x1+b2x2...bnxn is not accuarate enough for our model as we need the combinations on how each environmental factor interacts with each gene. So instead we are using the interactive model which is y = b0+b1x1+b2x2+b3x1x2.
+
+## Scanonevar.perm Function
+
+This function runs numerous permutations of the scanonevar fucntion to identify the accuracy of the scanonevar function. This function, however, takes a lot longer to run and is not doable on a home computer and requires a super computer. We send these to TACC which is the HPC in Texas.
+
+## Effectsizes function
+
+## Outputs
+
+## Plots
+
+# Running the Code
+
+## Using R
+
+R is a very convenient program for running cross analysis for large data pools. It is even more effective at running regression models with large matrices and tables. R is also very effective at reading in csv files and csv cross files. It also has many specific and quick table functions like tapply and sapply which are much more effeicient than using for loops. Finally, R is also the language in which the vQTL package is created in.
+
+### R Studio
+
+R Studio is the IDE we use to run R in. It is much more user friendly that R. One can have several tabs open to work between or hold different programs. One can create new projects and link the project to Github for easy updating. It also remembers functions and variable names to increase speed of typing. Its help window on the bottom right hand corner is also very useful and can link to other options that one may not know exist. It can create plots effectively which can easily be saved onto a computer. 
+
+### Tidyverse package
+
+Using the tidyverse is not a requirement, but for data manipulation they provide standards that can be used across any type of R project and Hadley Wickham (the tidyverse core contributor) diligently researches best software development practices. Install via ```install.packages("tidyverse")``` and check out the following free ebook by Hadley Wickham here [R for Data Science](https://r4ds.had.co.nz). Running the ```library(tidyverse)``` command will load several packages used commonly like tidyr, dplyr, readr, and purrr.
+
+## Using HPC (High Performance Computers)
+
+As discussed in the Scanonevar.perm section, some functions when running giant data sets cannot be run on a home computer. Therefore, they need to be sent to an HPC. We use the TACC (Texas Advanced Computing Center). We are able to login to the HPC remotely and send files via githup to the HPC. We setup a github in the HPC and then our own Github then pull and push
+
+## Using Github
+
+Github becomes a very useful file sharing and storage system. In Github one can upload local files to the internet for other people to access. Github will override old files with new files such that one can always use the latest versioin. Github uses a push and pull system to upload and download the file.
+
+To upload the files on Github, one can use the terminal on their computer. The first thing to do is to change the directory to the directory they want to upload on Github. Typically, one will have a folder on Github with the same name. Furthermore, one needs to clone that repository to Github. This can easily be done by copying the file path into Github where it says clone repository. Thereafter, they will type in their terminal *(git add .)*, then type *(git commit)*. After that, a screen will come up asking the user to name the upload. Type *(i)* to insert and then the user can type the name of the upload. To save and quit press *(esc)* then *(:w)* to save and *(:q)* to quit. Then type *(git push)*. this will update the git reposirtory and make all the updated work in that folder available to other people in the project. 
+
+To download the files from Github, the user needs again to have a destination folder cloned as a Git repository on their computer. Then change the directory to that directory and type *(git pull)* and all the files from that repository will be on copied to their computer. It is important to note that a specific github location/user must be cloned to a specific directory on the computer. It is not like once a directory is a github repository for one user, that it is a github repository for all. 
+
+Github is designed to work directly with members in group with several directories cloned for regular updating. R projects can also be cloned and directly linked to Github. On R Studio one can directly push project files to github without using the terminal.
+
+# Workflow
+
+# Results
+
+# Plots
+
+# Conclusion
+
+
+
+
+
+
+Download R Studio
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

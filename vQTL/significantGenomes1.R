@@ -6,7 +6,7 @@ library(dplyr)
 library(tidyverse)
 setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/vQTL/")
 Maindata = read.csv("ManchingStressData_Covar.csv")
-
+#https://github.com/MRCopeland74/stapleton_lab/blob/master/vQTL/ManchingStressData_Covar.csv
 #top 10 most significant genes
 Maindata[[3245]][6674] <- "B"
 avgdiff <- tapply(Maindata$Height,Maindata$gpm27, mean)[4:5]
