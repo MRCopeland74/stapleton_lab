@@ -1,0 +1,22 @@
+site_name: vQTL
+site_description: vQTL Workflow Documentation
+repo_url: https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs
+theme: readthedocs
+edit_uri: https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs
+nav:
+- Home: 'index.md'
+- Project Overview: 'Project Overview.md'
+- WorkFlow:
+    - Getting Started: 'Using R.md'
+    - Data: 'Data.md'
+    - vQTL Analysis': 'vQTL Analysis.md'
+    - qPCR Analysis': 'qPCR Analysis.md'
+    - Workflow: 'Workflow.md'
+- Tutorials:
+    - Getting Started With High Performance Computing: 'Using HPC.md'
+    - Introduction to GitHub and Project Set-up: 'Using GitHub.md'
+    - Jobs on HPC: 'Jobs on HPC.md'
+    - Launcher Module: 'Launcher Module.md'
+    - Reminders and Useful Commands: 'Reminders and Useful Commands.md'
+    - Updating the Docs: 'Updating the Docs.md'
+site_author: 'Austin Gratton and Michael Copeland'

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Austin Gratton and Michael Copeland">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Jobs on HPC - vQTL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Jobs on HPC";
+    var mkdocs_page_input_path = "Jobs on HPC.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> vQTL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Project%20Overview/">Project Overview</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WorkFlow</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20R/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data/">Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../vQTL%20Analysis/">vQTL Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../qPCR%20Analysis/">qPCR Analysis'</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Workflow/">Workflow</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20HPC/">Getting Started With High Performance Computing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Using%20GitHub/">Introduction to GitHub and Project Set-up</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Jobs on HPC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#batch-script">Batch Script</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#push-and-pull-requests">Push and Pull Requests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#job-submittal-process">Job Submittal Process</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Launcher%20Module/">Launcher Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reminders%20and%20Useful%20Commands/">Reminders and Useful Commands</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Updating%20the%20Docs/">Updating the Docs</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">vQTL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Jobs on HPC</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/Jobs on HPC.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="the-batch-script-and-jobs">The Batch Script and Jobs</h2>
+<p>This section of the tutorial will assume some basic knowledge of how to log into the HPC via <code>ssh</code> and to navigate directories via Command Line or Terminal. Feel free to go to the last section of the GitHub tutorial for a brief refresher of the <code>ssh</code> log-in process. Likewise, we will briefly discuss how to navigate directories in this tutorial, but more information is given in the "Reminders and Useful Commands" tutorial.</p>
+<h3 id="batch-script">Batch Script</h3>
+<p>Unlike a personal computer the HPC will not simply run an R or Python script. The high performance computer must be "told" what to do. This is because endusers have the ability to request how much and what type of resources are utilized when a job is submitted through the system. For example, you will have one option to choose how many cores the HPC uses to process your request and yet another option is to have the system email you when a job is submitted or completed. The batch script is what communicates your requests to the HPC. You may find an example batch script below:</p>
+<p><code>#!/bin/bash</code> (Never change this line) <br/>
+<code>#</code> <br/>
+<code>#</code> <br/>
+<code>#SBATCH -J job_name</code> <br/>
+<code>#SBATCH -o job_name.%j.out</code> <br/>
+<code>#SBATCH -N number_of_nodes</code> <br/>
+<code>#SBATCH -n total_number_of_MPI_tasks</code> <br/>
+<code>#SBATCH -p process_queues</code> <br/>
+<code>#SBATCH -t max_time</code> <br/>
+<code>#SBATCH -A Envriotype</code> <br/>
+<code>#SBATCH --mail-user=&lt;email@host.com&gt;</code> <br/>
+<code>#SBATCH --mail-type=all</code> <br/>
+<code>#------------------------------------------------------</code> <br/>
+<code>mkdir -p output</code> <br/>
+<code>Rscript --verbose ./script_to_be_run.R &gt; ./output.Rout</code> <br/></p>
+<p>Notice, however, you must change a few generic identifiers with your own specifics. For example, "job_name" should be replaced with a name which is less than 8 characters long that will help you identify it in the queue. The expressions "number_of_nodes" (N) and "total_number_of_MPI_tasks" (n) must both be replaced with at least 1. The value "max_time" must be in the format hh:mm:ss, where hh is the number of hours, mm is the number of minutes, and ss is the number of seconds you think are needed for your job to complete. The expression "<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#109;&#97;&#105;&#108;&#64;&#104;&#111;&#115;&#116;&#46;&#99;&#111;&#109;">&#101;&#109;&#97;&#105;&#108;&#64;&#104;&#111;&#115;&#116;&#46;&#99;&#111;&#109;</a>" should be replaced with your preferred email address (without the arrows on the ends), and "script_to_be_run.R" should be replaced with the name of a file in the same folder as the batch script you wish the HPC to run. The only line which requires much thought is the one where you choose how to replace "process_queues". The typical selection is to replace it with "normal"; but you may also choose to select queues like "large", "long", or "development". There are several other options in addition to these, but know that the process queue you choose will determine when your job begins, how long it may run before being automatically terminated, and the number of compute resources available to you.</p>
+<p>If you wish to know more about batch scripts, there are plenty of other tutorials online. One great tutorial is provided by Cornell University's Center for Advanced Computing. This <a href="https://www.cac.cornell.edu/education/training/StampedeJan2017/Envi.pdf">tutorial</a> provides a good introduction to how Stampede2 operates and gives several great examples of batch scripts and other useful SLURM codes.</p>
+<h3 id="push-and-pull-requests">Push and Pull Requests</h3>
+<p>When you wish to edit a batch script, open RStudio and go to the EnviroTyping Project created earlier. You can edit batch scripts in RStudio just like any other file, so it will be assumed you are working in this IDE. You may choose to edit an existing batch script or create a new one; ensure the file name is in the form of <code>file_name.sh</code> because the <code>.sh</code> extension is one way the HPC knows how to read the script.</p>
+<p>Once you finish editing the batch script (or any other file), you must commit the change to your GitHub repository and submit a push request. First, open RStudio and look around the top-middle of the RStudio window for a smaller icon with a green "+", red "-", and grey "G" symbol vertically stacked.</p>
+<p><img src="https://github.com/TACC/EnviroTyping/blob/Tutorial_Additions/doc_files/docs/img/GitLogo.png" width="600"/></p>
+<p>Click on the symbol, then select "Commit". This starts the staging process. A new window should open where you select the files you want to stage, select all the files you want to merge into your repository and write a short message that describes the changes made in each file. Once all changes have been staged, click the green arrow that says "Push" to add the new changes to your GitHub repository. If there are no complications, your repository should be updated in less than a minute.</p>
+<p>Next, you must make sure the repository cloned to your Stampede2 drive is updated as well. Log-in to Stampede2 as before and enter the command <code>git pull</code>. If there are no complications and few files to update, your command line editor will give descriptions of the files added, changed, or deleted in a matter of a few seconds. Make sure to update each drive ($home, $work, etc.) in Stampede2 as necessary.</p>
+<p>This process is the same for any file -- not just batch scripts. Once your changes have been pushed and pulled without issue, you may continue to submit your batch script to the HPC for processing.</p>
+<h3 id="job-submittal-process">Job Submittal Process</h3>
+<p>Assuming you are already logged into the system, there are three steps to submitting a job request to Stampede2. First, load the modules needed to run the job. Second, navigate to the directory of the batch script you wish to submit. Third, submit the batch script.</p>
+<p>Loading modules requires the use of a single command: <code>module load &lt;module&gt;</code> or <code>ml &lt;module&gt;</code>. EnviroTyping requires the extensive use of R, so you will more than likely need to use <code>ml Rstats</code>. If need be, you can also load Python or other modules in similar manner.</p>
+<p>Navigating directories via command line editors is simple. If you're unsure of the layout of the folders you can see all the folders and files on the current level of the directory by entering the command <code>ls</code>. You can then go down a level by typing the command <code>cd &lt;folder_name&gt;</code>. If you accidentally go into the wrong folder, the command <code>cd ..</code> will take you back up one level of your directory. You may repeat this process until you find the location of the batch script.</p>
+<p>Finally, you are ready to submit the job request! Type <code>sbatch &lt;file_name.sh&gt;</code>. Stampede should output information about the job request, such as the request number and some other identifying information. From here you may do a number of things, such as check on the status of the request or even cancel the job. More information about your options is found in the "Reminders and Useful Commands" tutorial.</p>
+<h2 id="stampede-rules-and-practices">Stampede Rules and Practices</h2>
+<p>One of the most important rules for using Stampede2 resources is to practice good citizenship. Once you create your TACC account, you become one of the thousands of users sharing the same compute power so it's best to start learning to "do unto others as you'd have them do unto you." The following are some basic rules to follow.</p>
+<p>First, TACC recommends submitting job requests in $WORK. This is accomplished by entering the command <code>cdw</code> at the beginning of your session before you follow the steps to submit a job. Use $HOME (or <code>cdh</code>) to manage files. Don't submit an R (or other program) script without first submitting a batch script because you will inadvertently drain compute resources from the log-in nodes. Doing so will result in a nicely worded email from TACC.</p>
+<p>Second, when requesting time in your batch script, make sure you request an appropriate amount of time for your job and the appropriate process queue. For example, if a job should complete in 2 hours, don't request 10 or ask for the "long" process queue. It would be best to ask for, maybe, 5 hours and the "normal" queue. This increases the chances your job will be accepted sooner and allows other resources to be properly allocated. Stampede2 uses a formula that "bills" users for the amount of resources they need for a job; however, for most users, the workings of the computation is irrelevant, so long as they know it exists. In other words, the more time and nodes you request the longer you will wait for the job to start processing. You can read more about the various queues and their properties in the <a href="https://portal.tacc.utexas.edu/user-guides/stampede2#running-queues">User Guide</a>.</p>
+<p>There are many aspects to utilizing the HPC, so it never hurts to ask if you have any questions about the process or how to be a good citizen. Never hesitate to ask for help if you can't find what you need in the User Guide or another resource.</p>
+<h2 id="rstudio-interface-on-hpc">RStudio Interface on HPC</h2>
+<p>If there comes a time when you'd like to work in the RStudio IDE while staying connected to Stampede and its compute resources, you can do that. Enter the command <code>sbatch /share/doc/slurm/job.Rstudio</code> after you are logged into Stampede, and give the HPC a moment to process the input. You will be given a URL to connect to the web interface of RStudio where you will be required to submit your TACC log-in credentials. After submitting them correctly you will then have access to the familiar IDE with a cleaner visualization of your directories and any output which may be produced. This is a helpful tool if you would like to keep an eye on any work as it is processed.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Launcher%20Module/" class="btn btn-neutral float-right" title="Launcher Module">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Using%20GitHub/" class="btn btn-neutral" title="Introduction to GitHub and Project Set-up"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../Using%20GitHub/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Launcher%20Module/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
