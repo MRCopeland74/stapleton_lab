@@ -6,6 +6,10 @@ output: html_document
 ---
 
 # Workflow
+
+
+
 # Results
-# Plots
+![Significant Gentoype Effects](sigPlots.png)
+
 # Conclusion
