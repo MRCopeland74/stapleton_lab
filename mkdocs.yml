@@ -13,7 +13,7 @@ nav:
     - qPCR Analysis': 'qPCR Analysis.md'
     - Workflow: 'Workflow.md'
 - Tutorials:
-    - Getting Started With High Performance Computing: 'Using HPC.md'
+    - Getting Started with High Performance Computing: 'Using HPC.md'
     - Introduction to GitHub and Project Set-up: 'Using GitHub.md'
     - Jobs on HPC: 'Jobs on HPC.md'
     - Launcher Module: 'Launcher Module.md'
