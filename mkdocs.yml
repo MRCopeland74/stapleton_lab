@@ -1,8 +1,8 @@
 site_name: vQTL
 site_description: vQTL Workflow Documentation
-repo_url: https://github.com/MRCopeland74/stapleton_lab/tree/master/readthedocs
+repo_url: https://github.com/MRCopeland74/stapleton_lab/tree/master/docs
 theme: readthedocs
-edit_uri: https://github.com/MRCopeland74/stapleton_lab/tree/master/readthedocs
+edit_uri: https://github.com/MRCopeland74/stapleton_lab/tree/master/docs
 nav:
 - Home: 'index.md'
 - Project Overview: 'Project Overview.md'
@@ -13,8 +13,8 @@ nav:
     - qPCR Analysis': 'qPCR Analysis.md'
     - Workflow: 'Workflow.md'
 - Tutorials:
-    - Getting Started with High Performance Computing: 'Using HPC.md'
     - Introduction to GitHub and Project Set-up: 'Using GitHub.md'
+    - Getting Started with High Performance Computing: 'Using HPC.md'
     - Jobs on HPC: 'Jobs on HPC.md'
     - Launcher Module: 'Launcher Module.md'
     - Reminders and Useful Commands: 'Reminders and Useful Commands.md'
