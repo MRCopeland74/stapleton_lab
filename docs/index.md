@@ -7,11 +7,11 @@ output: html_document
 
 ## vQTL Analysis
 Better tools to analyze the varying genes interacting with particular phenotypes.
-## Core Contributers
+## Core Contributors
 * Ann E. Stapleton : University of North Carolina Wilmington Department of Biology and Marine Biology
 * Robert Corty :
 * Yishi Wang : University of North Carolina Wilmington Department of Mathematics and Statistics
-## Student Contributers
+## Student Contributors
 * Austin Gratton : University of North Carolina Wilmington
   + azg5169@uncw.edu
   + grattonauz@gmail.com
@@ -20,7 +20,7 @@ Better tools to analyze the varying genes interacting with particular phenotypes
   + michaelrcopeland74@gmail.com
 
 ## Purpose
-Better combinations of genes within corn crops due to genetic modification can result in a better harvest. These combinations of genes can further be altered to maximize the harvest in various environment conditions such as low rainfall/poor irrigation, low nitrogen levels, or with the presence of a pathogen or in almagamation of these factors. Farmers can assess the environmental conditions and thus, determine the most favorable genotype to grow in their landscape for the best crop yield.
+Better combinations of genes within corn crops due to genetic modification can result in a better harvest. These combinations of genes can further be altered to maximize the harvest in various environment conditions such as low rainfall/poor irrigation, low nitrogen levels, or with the presence of a pathogen or in amalgamation of these factors. Farmers can assess the environmental conditions and thus determine the most favorable genotype to grow in their landscape for the best crop yield.
 ## Reference
 
 ### QPCR Citations

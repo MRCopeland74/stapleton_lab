@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <meta name="author" content="Austin Gratton and Michael Copeland">
-  
+
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Introduction to GitHub and Project Set-up - vQTL</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
@@ -15,26 +15,26 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
+
   <script>
     // Current page data
     var mkdocs_page_name = "Introduction to GitHub and Project Set-up";
     var mkdocs_page_input_path = "Using GitHub.md";
     var mkdocs_page_url = null;
   </script>
-  
+
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+  <script>hljs.initHighlightingOnLoad();</script>
+
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
 
-    
+
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
@@ -101,39 +101,39 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-      
+
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
         <a href="..">vQTL</a>
       </nav>
 
-      
+
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-        
+
+
+
           <li>Tutorials &raquo;</li>
-        
-      
-    
+
+
+
     <li>Introduction to GitHub and Project Set-up</li>
     <li class="wy-breadcrumbs-aside">
-      
+
         <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/Using GitHub.md"
           class="icon icon-github"> Edit on GitHub</a>
-      
+
     </li>
   </ul>
-  
+
   <hr/>
 </div>
           <div role="main">
             <div class="section">
-              
+
                 <h1 id="using-github-summary">Using Github Summary</h1>
 <p>Github becomes a very useful file sharing and storage system. In Github one can upload local files to the internet for other people to access. Github will override old files with new files such that one can always use the latest versioin. Github uses a push and pull system to upload and download the file.
 To upload the files on Github, one can use the terminal on their computer. The first thing to do is to change the directory to the directory they want to upload on Github. Typically, one will have a folder on Github with the same name. Furthermore, one needs to clone that repository to Github. This can easily be done by copying the file path into Github where it says clone repository. Thereafter, they will type in their terminal <em>(git add .)</em>, then type <em>(git commit)</em>. After that, a screen will come up asking the user to name the upload. Type <em>(i)</em> to insert and then the user can type the name of the upload. To save and quit press <em>(esc)</em> then <em>(:w)</em> to save and <em>(:q)</em> to quit. Then type <em>(git push)</em>. this will update the git reposirtory and make all the updated work in that folder available to other people in the project.
@@ -236,31 +236,31 @@ Github is designed to work directly with members in group with several directori
 <h2 id="cloning-repository-into-stampede">Cloning Repository into Stampede</h2>
 <p>You are almost finished! Now you need to ensure your portal on the Stampede servers has cloned the data from your personal GitHub fork of the EnviroTyping repository. Assuming you have already created an account with TACC, cloning your repository is straightforward.</p>
 <p>First, you must be connected to a secure Wi-Fi or ethernet network. If you are not, TACC will not allow you to connect to the Stampede servers. Next, open up Terminal (Mac OS/Linux) or Command Line (Windows), and log onto the servers by SSH. Type into your command line prompt <code>ssh &lt;TACC username&gt;@stampede2.tacc.utexas.edu</code>. After inputting your password the system will ask you to verify your login information by sending you a text or email, depending upon your settings, with a unique code. Inputting the code correctly will finalize the log-in process. Make sure you copy the URL from your forked repository, then type: <code>git clone &lt;repository URL&gt;</code>. The URL will be the same as the one used for the R Project previously. You will know your command was accepted if Terminal or Command Line tells you that files are being downloaded. Once your repository is cloned, you may now submit jobs to be processed on the HPC. If you are unfamiliar with the SLURM commands used to communicate with Stampede2, feel free to reference the "Reminders and Useful Commands" section of the ReadtheDocs.</p>
-              
+
             </div>
           </div>
           <footer>
-  
+
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+
         <a href="../Jobs%20on%20HPC/" class="btn btn-neutral float-right" title="Jobs on HPC">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
+
+
         <a href="../Using%20HPC/" class="btn btn-neutral" title="Getting Started With High Performance Computing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
+
     </div>
-  
+
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
+
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+
         </div>
       </div>
 
@@ -270,15 +270,15 @@ Github is designed to work directly with members in group with several directori
 
   <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
-      
+
           <a href="https://github.com/AustinGratton/vQTL/tree/master/vQTL/vQTL/docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
+
+
         <span><a href="../Using%20HPC/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
+
+
         <span style="margin-left: 15px"><a href="../Jobs%20on%20HPC/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
+
     </span>
 </div>
     <script>var base_url = '..';</script>
