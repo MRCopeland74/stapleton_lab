@@ -14,6 +14,7 @@ nav:
     - Workflow: 'Workflow.md'
 - Tutorials:
     - Introduction to GitHub and Project Set-up: 'Using GitHub.md'
+    - Introduction to scanonevar(): 'Using Scanonevar.md'
     - Getting Started with High Performance Computing: 'Using HPC.md'
     - Jobs on HPC: 'Jobs on HPC.md'
     - Launcher Module: 'Launcher Module.md'
