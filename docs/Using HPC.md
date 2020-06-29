@@ -6,7 +6,7 @@ output: html_document
 ---
 
 # HPC (High Performance Computers) Summary
-As discussed in the Scanonevar.perm section, some functions when running giant data sets cannot be run on a home computer. Therefore, they need to be sent to an HPC. We use the TACC (Texas Advanced Computing Center). We are able to login to the HPC remotely and send files via githup to the HPC. We setup a github in the HPC and then our own Github then pull and push
+As discussed in the Scanonevar.perm section, some functions when running giant data sets cannot be run on a home computer. Therefore, they need to be sent to an HPC. We use the TACC (Texas Advanced Computing Center). We are able to login to the HPC remotely and send files via Github to the HPC. We setup a Github in the HPC and then our own Github then pull and push
 
 ## Why HPC?
 
