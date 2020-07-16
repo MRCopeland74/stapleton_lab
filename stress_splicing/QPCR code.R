@@ -7,6 +7,7 @@ setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/stress_splicing")
 
 
 df2 = read.csv(file = "hybred.csv")
+write_csv(df2, "hybred.csv")
 df2 = lapply(df2, gsub, pattern='PH207x', replacement='')
 df2 = lapply(df2, gsub, pattern='PH207X', replacement='')
 df2 = as.data.frame(df2)
@@ -24,6 +25,13 @@ write_csv(full, "Fullinb&hyb.csv")
 test_hyb <-read.cross(file = "hybred.csv")
 test_inbr <-read.cross(file = "inbred.csv")
 test_full <- read.cross(file = "Fullinb&hyb.csv")
+fullinb = read.csv("Fullinb&hyb.csv")
+fullinb$BreedType="Inbred"
+write_csv(fullinb, "Fullinb.csv")
+test_full.inb <- read.cross(file = "Fullinb.csv")
+
+
+
 #calc.genoprob(test_hyb)
 #?calc.genoprob
 #head(as.numeric(as.factor(test_cross$pheno$Barcode)))
@@ -53,10 +61,15 @@ hyv_p2 <- scanonevar(cross = test_full,
 
 
 full_so <- scanone(cross = test_full, pheno.col = 'stress')
-full_sov <- scanonevar(cross = test_full, 
-                       mean.formula = stress ~ BreedType*(mean.QTL.add + mean.QTL.dom),
-                       var.formula = ~ BreedType + var.QTL.add + var.QTL.dom,
+full_sov.nobreed <- scanonevar(cross = test_full, 
+                       mean.formula = stress ~ mean.QTL.add,
+                       var.formula = ~  var.QTL.add,
                        return.covar.effects = TRUE)
+
+full_sov.inbred <- scanonevar(cross = test_full.inb, 
+                       mean.formula = stress ~ BreedType*(mean.QTL.add),
+                       var.formula = ~ BreedType*var.QTL.add,
+                       return.covar.effects = FALSE)
 
 write_rds(full_sov, "Full_SOV.rds")
 # so_p3 <- scanone(cross = test_cross, pheno.col = 'phenotype3', addcovar = test_cross$pheno$sex)
