@@ -5,7 +5,6 @@ library(tidyverse)
 library(dplyr)
 library(MASS)
 library(glm.predict)
-library(Stack)
 library(plyr)
 library(qpcR)
 
@@ -18,10 +17,10 @@ library(qpcR)
 
 # In the case of having one CSV containing calculated derivatives, use this code:
 
-setwd("/Users/michaelcopeland/Stapleton/Julia/Drew-stapleton_lab/Stress_Splicing")
+setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/qPCR2vQTL")
 ####################################NOVEMBER#####################################################
-plate.1 = read.csv("2018_11/2018_11_1_plate.csv")
-plate.2 = read.csv("2018_11/2018_11_2_plate.csv")
+plate.1 = read.csv("2018_11_1_plate.csv")
+plate.2 = read.csv("2018_11_2_plate.csv")
 
 plate.2 = plate.2[,-1]
 plate  = cbind(plate.1, plate.2)
@@ -201,9 +200,9 @@ exp_data$allP.exp.ln = log(exp_data$allP.exp)
 write.csv(exp_data, file = "exp_2018_11#2.csv")
 
 ####################################AUGUST#####################################################
-plate.3 = read.csv("2018_8/2018_8_1_plate.csv")
-plate.4 = read.csv("2018_8/2018_8_2_plate.csv")
-plate.5 = read.csv("2018_8/2018_8_3_plate.csv")
+plate.3 = read.csv("2018_8_1_plate.csv")
+plate.4 = read.csv("2018_8_2_plate.csv")
+plate.5 = read.csv("2018_8_3_plate.csv")
 
 plate.4 = plate.4[,-1]
 plate.5 = plate.5[,-1]
@@ -328,7 +327,7 @@ calib_data$startq=as.factor(calib_data$startq)
 calib_data$allPln = log(calib_data$allP)
 calib_data$test1ln = log(calib_data$test1)
 
-write.csv(calib_data, file = "calib_2018_11#2.csv")
+write.csv(calib_data, file = "calib_2018_8#2.csv")
 
 
 ### COMPLETED CALIBRATED DATA FRAME ###
@@ -381,10 +380,10 @@ exp_data$allP.exp = as.numeric(as.character(exp_data$allP.exp))
 exp_data$test1.exp.ln = log(exp_data$test1.exp)
 exp_data$allP.exp.ln = log(exp_data$allP.exp)
 
-write.csv(exp_data, file = "exp_2018_11#3.csv")
+write.csv(exp_data, file = "exp_2018_8#2.csv")
 
 ####################################JUNE#####################################################
-plate.6 = read.csv("2018_6/2018_6_1_plate.csv")
+plate.6 = read.csv("2018_6_1_plate.csv")
 
 plate  = plate.6
 finalcycle3 = rbind(plate[2,],plate[1,],plate[3,],plate[6:45,])
@@ -507,7 +506,7 @@ calib_data$startq=as.factor(calib_data$startq)
 calib_data$allPln = log(calib_data$allP)
 calib_data$test1ln = log(calib_data$test1)
 
-write.csv(calib_data, file = "calib_2018_8#3.csv")
+write.csv(calib_data, file = "calib_2018_6#2.csv")
 
 
 ### COMPLETED CALIBRATED DATA FRAME ###
@@ -560,7 +559,7 @@ exp_data$allP.exp = as.numeric(as.character(exp_data$allP.exp))
 exp_data$test1.exp.ln = log(exp_data$test1.exp)
 exp_data$allP.exp.ln = log(exp_data$allP.exp)
 
-write.csv(exp_data, file = "exp_2018_6#3.csv")
+write.csv(exp_data, file = "exp_2018_6#2.csv")
 
 ###########################################################################################################
 #######################################Heirarchal analysis#################################################
@@ -586,25 +585,25 @@ library(vqtl)
 
 
 # set directory to the Heirarchical folder
-setwd("/Users/michaelcopeland/Stapleton/Julia/Drew-stapleton_lab/Stress_Splicing/Heirarchical")
+
 
 #### reading in and setting up calibrated data ####
 # MONTH 1 (2018_6 / JUNE) CALIBRATED DATA FRAME 
-calib_data_6 = (read.csv("calib_2018_6#3.csv")[,c(2:4)])
+calib_data_6 = (read.csv("calib_2018_6#2.csv")[,c(2:4)])
 calib_data_6$ztest1 = (calib_data_6$test1 - mean(calib_data_6$test1))/sd(calib_data_6$test1)
 calib_data_6$zallP = (calib_data_6$allP - mean(calib_data_6$allP))/sd(calib_data_6$allP)
 calib_data_6$month ='june'
 #calib_data_6
 
 # MONTH 2 (2018_8 / AUGUST) CALIBRATED DATA FRAME
-calib_data_8 = (read.csv("calib_2018_8#3.csv")[,c(2:4)])
+calib_data_8 = (read.csv("calib_2018_8#2.csv")[,c(2:4)])
 calib_data_8$ztest1 = (calib_data_8$test1 - mean(calib_data_8$test1))/sd(calib_data_8$test1)
 calib_data_8$zallP = (calib_data_8$allP - mean(calib_data_8$allP))/sd(calib_data_8$allP)
 calib_data_8$month ='aug'
 #calib_data_8
 
 # MONTH 3 (2018_11 / NOVEMBER) CALIBRATED DATA FRAME
-calib_data_11 = (read.csv("calib_2018_11#3.csv")[,c(2:4)])
+calib_data_11 = (read.csv("calib_2018_11#2.csv")[,c(2:4)])
 calib_data_11$ztest1 = (calib_data_11$test1 - mean(calib_data_11$test1))/sd(calib_data_11$test1)
 calib_data_11$zallP = (calib_data_11$allP - mean(calib_data_11$allP))/sd(calib_data_11$allP)
 calib_data_11$month ='nov'
@@ -695,7 +694,7 @@ head(coef(ordfit$fit, matrix = TRUE, whichLambda = bestLambdaIndex))
 ###### Experimental Data #######
 
 # MONTH 1 (2018_8 / AUGUST) EXPERIMENTAL DATA FRAME
-setwd("/Users/michaelcopeland/Stapleton/Julia/Drew-stapleton_lab/Stress_Splicing/")
+
 exp_data_8 = na.omit(read.csv("exp_2018_8#2.csv")[,-c(1,5,6,7)]) 
 exp_data_8$ztest1 = (exp_data_8$test1 - mean(exp_data_8$test1))/sd(exp_data_8$test1)
 exp_data_8$zallP = (exp_data_8$allP - mean(exp_data_8$allP))/sd(exp_data_8$allP)
@@ -704,14 +703,14 @@ exp_data_8$sampleID.exp = as.factor(exp_data_8$sampleID.exp)
 #exp_data_8
 
 # MONTH 2 (2018_6 / JUNE) EXPERIMENTAL DATA FRAME 
-exp_data_6 = na.omit(read.csv("2018_6/exp_2018_6.csv")[,-c(1,5,6,7)])
+exp_data_6 = na.omit(read.csv("exp_2018_6#2.csv")[,-c(1,5,6,7)])
 exp_data_6$ztest1 = (exp_data_6$test1 - mean(exp_data_6$test1))/sd(exp_data_6$test1)
 exp_data_6$zallP = (exp_data_6$allP - mean(exp_data_6$allP))/sd(exp_data_6$allP)
 exp_data_6$month ='june'
 #exp_data_6
 
 # MONTH 3 (2018_11 / NOVEMBER) EXPERIMENTAL DATA FRAME
-exp_data_11 = na.omit(read.csv("2018_11/exp_2018_11.csv")[,-c(1,5,6,7)])
+exp_data_11 = na.omit(read.csv("exp_2018_11#2.csv")[,-c(1,5,6,7)])
 exp_data_11$ztest1 = (exp_data_11$test1 - mean(exp_data_11$test1))/sd(exp_data_11$test1)
 exp_data_11$zallP = (exp_data_11$allP - mean(exp_data_11$allP))/sd(exp_data_11$allP)
 exp_data_11$month ='nov'
@@ -745,7 +744,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(k$allP, k$test1))
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
 }
 
 
@@ -786,26 +785,28 @@ qplot()
 ### Write the exp data with the stress product as a new data frame for vqtl matching
 write.csv(exp_data, "Hierarchical_exp_data_stress#3.csv")
 
+##################################################################################################################
 
 
-
-barcode.breed = read.csv("Heirarchical/vqtlinput.csv")
+barcode.breed = read.csv("vqtlinput.csv")
 barcode.breed = cbind.data.frame(barcode.breed$Barcode, barcode.breed$BreedType)
 names(barcode.breed) = c("Barcode", "BreedType")
 barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
 barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
-barcode.breed[3:367,]
+barcode.breed = barcode.breed[3:367,]
 barcode.breed = na.omit(barcode.breed)
+
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
 exp_data = na.omit(exp_data)
-
 names(exp_data)[1]= 'Barcode'
+exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
+
 left  <- exp_data %>% left_join(barcode.breed,  by = 'Barcode')
 left.str = left[c(1,11)]
 setwd("/Users/michaelcopeland/Downloads")
 
-fulldata = read.csv("SamplingPlan_dat2.csv")
+fulldata = read.csv("SamplingPlan_dat2.csv")#OSF
 fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
 fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
 fulldata_sub = fulldata[,1:15]
@@ -817,7 +818,7 @@ fulldata.vqtl = cbind.data.frame(fulldata.na$stress,fulldata.na$Barcode,fulldata
 
 
 
-setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/stress_splicing")
+setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/qPCR2vQTL")
 hybrid.inbred = read.csv("Fullinb&hyb.csv", header = FALSE)
 names(fulldata.vqtl) = hybrid.inbred[1,]
 hybrid.inbred = read.csv("Fullinb&hyb.csv", header = TRUE)
@@ -826,8 +827,8 @@ fulldata.vqtl$stress = as.character(fulldata.vqtl$stress)
 rownames(fulldata.vqtl) <- NULL;
 fulldata.vqtl[1,1] = ""
 fulldata.vqtl[2,1] = ""
+fulldata.vqtl = fulldata.vqtl[,-c(2,3,5)]
 write.csv(fulldata.vqtl, "fullvqtldata#3.csv", row.names = FALSE)
-
 test_full <- read.cross(file = "fullvqtldata#3.csv", format = "csv")
 
 test_full <- drop.nullmarkers(test_full)
