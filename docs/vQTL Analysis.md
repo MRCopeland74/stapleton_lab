@@ -15,7 +15,9 @@ The `scanonevar()` function was developed by Robert Corty and is an extension of
 function estimates the likelihood that any particular gene affects the mean and/or variance of a specified phenotype. The function provides the relevant test statistics and corresponding p-values of each respective gene. Genes with high log-odds ("LODs"), and consequently low p-values, are the genes that are most significant and most useful to the project. The `scanone()` function can easily be run on a local computer while the `scanonevar()` function can take hours to run. For a thorough demonstration of the use of this function, see our [introduction to `scanonevar()`](https://stapleton-lab.readthedocs.io/en/latest/Using%20Scanonevar/).
 
 ## Interactive model
-For our project we need the interactive model. The additive model, y = b0+b1x1+b2x2...bnxn is not accurate enough for our model as we need the combinations on how each environmental factor interacts with each gene. So instead we are using the interactive model which is y = b0+b1x1+b2x2+b3x1x2.
+Relevant to our research is the effect of the combination of certain environmental factors (*A, B*) with breed type (*hybrid, inbred*) on the stress gene levels of our samples. Therefore, an additive model is insufficient and we instead seek to implement the interactive model given below:  
+
+![](interactive.png)  
 
 ## `Scanonevar.perm()` Function
 This function runs numerous permutations of `scanonevar()` to identify the accuracy of the `scanonevar()` function. This function, however, takes a lot longer to run and is not doable on a home computer and requires a super computer. We send these to TACC which is the HPC in Texas.
