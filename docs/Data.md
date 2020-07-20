@@ -19,9 +19,17 @@ td{
 [Hierarchical](https://osf.io/wqrsd/) and the [Sampling Plan](https://osf.io/mu5qs/) Data are available at this link. Here is a sample of the sampling plan dataset.
 
 ## vQTL Data
-The [hyrbid data](https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullHybvqtlinput.csv) and the [inbred data](https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullInbvqtlinput.csv) we used for the vQTL data was all in these two csv file known as the FullHybvqtlinput and FullInbvqtlinput Data. This file contained a phenotype which is the height of the corn crop. There are 8 columns of different environment combinations of low water, low nitrogen, or presence of a pathogen. There is an environment column numbering the different combinations from 1-8. These combinations are either 1 or 0.  Then there is 3235 columns of different gene names. These are either A, B or NA. The for the rows we have a row indicating the chromosomes that the genes are on. There are 10 different chromosomes. There is another row that indicates the distance the gene is on the chromosome. The next 6672 rows are different tests with varying gene combinations and varying environmental combinations. The data is very similar however not the same for each environmental combination, and for some environmental combinations more tests have been done.
+The hyrbid and inbred data used for our vQTL analysis originates from `[FullHybvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullHybvqtlinput.csv) and `[FullInbvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullInbvqtlinput.csv) respectively. The list below details the factors included in these datasets.
+ * Our phenotype of interest, stress gene amount (`stress`)
+ * A unique identifier for each observation (`Barcode`)
+ * The month that the sample was taken (`month`: *June, August, November*)
+ * The breed type of the maize corresponding to the sample (`BreedType`: *Hybrid, Inbred*)
+ * The genotype of the sample (`Genotype`)
+The remaining 362 columns describe different gene names. These are either A, B or NA. The `Genotype` variable corresponds to a unique arrangement of these 362 genes.
+For more information regarding `stress`, please see our [qPCR Analysis](https://stapleton-lab.readthedocs.io/en/latest/qPCR%20Analysis/).
 
-This is the hybrid sample dataset:
+
+Below is a truncated sample from the hybrid dataset:
 
 |stress     |Barcode   |month|BreedType|Genotype   |gpm27|tub1|gpm113b|gpm705a|gpm325a|dmt103b|gpm699d|gpm319|IDP1447|
 |-----------|----------|-----|---------|-----------|-----|----|-------|-------|-------|-------|-------|------|-------|
@@ -41,7 +49,7 @@ This is the hybrid sample dataset:
 |643.1691161|236_D_1692|june |Hybrid   |PH207xMo311|A    |-   |A      |A      |A      |-      |A      |A     |B      |
 |1490.150142|242_A_1761|june |Hybrid   |PH207xMo354|A    |A   |A      |A      |A      |A      |A      |A     |A      |
 
-This is inbred sample dataset:
+And here, a similar sample from the inbred dataset:
 
 |stress     |Barcode  |month|BreedType|Genotype|gpm27|tub1|gpm113b|gpm705a|gpm325a|dmt103b|gpm699d|gpm319|IDP1447|
 |-----------|---------|-----|---------|--------|-----|----|-------|-------|-------|-------|-------|------|-------|
