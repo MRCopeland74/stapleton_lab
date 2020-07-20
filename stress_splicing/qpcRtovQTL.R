@@ -562,7 +562,7 @@ exp_data$allP.exp.ln = log(exp_data$allP.exp)
 write.csv(exp_data, file = "exp_2018_6#2.csv")
 
 ###########################################################################################################
-#######################################Heirarchal analysis#################################################
+###################################### Heirarchal analysis ################################################
 ###########################################################################################################
 
 library(ggplot2)
@@ -778,9 +778,7 @@ hist(negstress$stress, col = "light green")
 length(negstress$stress)/length(exp_data$stress)
 
 # making negstress "NA" #
-na.obs = match(negstress$stress,exp_data$stress) #returns list of indicies
-# we want to replace the negative values with N/A
-exp_data[na.obs, ] = NA
+exp_data= exp_data[which(exp_data[,11] >0),]
 qplot()
 ### Write the exp data with the stress product as a new data frame for vqtl matching
 write.csv(exp_data, "Hierarchical_exp_data_stress#3.csv")
@@ -796,9 +794,11 @@ barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.br
 barcode.breed = barcode.breed[3:367,]
 barcode.breed = na.omit(barcode.breed)
 
+exp_data = read.csv("Hierarchical_exp_data_stress#3.csv")
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
 exp_data = na.omit(exp_data)
+exp_data = exp_data[,-1]
 names(exp_data)[1]= 'Barcode'
 exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
 
@@ -844,6 +844,287 @@ hyv_p2 <- scanonevar(cross = test_full,
 
 
 #ratio if femtograms and substraction if log scale
+################################################## by month analysis #############################################
+################################################## by month analysis #############################################
+################################################## by month analysis #############################################
+calib_data_6 = (read.csv("calib_2018_6#2.csv")[,c(2:4)])
+calib_data_6$ztest1 = (calib_data_6$test1 - mean(calib_data_6$test1))/sd(calib_data_6$test1)
+calib_data_6$zallP = (calib_data_6$allP - mean(calib_data_6$allP))/sd(calib_data_6$allP)
+calib_data_6$month ='june'
+#calib_data_6
+
+calib_subset_6 = calib_data_6[,c(1, 4,5)]
+ordfit = ordinalNetTune(as.matrix(calib_subset_6[,2:3]), as.factor(calib_subset_6$startq), family = "cumulative",
+                        link = "logit", parallelTerms = TRUE, nonparallelTerms = TRUE, 
+                        warn = FALSE, printProgress = FALSE)
+
+# MONTH 2 (2018_6 / JUNE) EXPERIMENTAL DATA FRAME 
+exp_data_6 = na.omit(read.csv("exp_2018_6#2.csv")[,-c(1,5,6,7)])
+exp_data_6$ztest1 = (exp_data_6$test1 - mean(exp_data_6$test1))/sd(exp_data_6$test1)
+exp_data_6$zallP = (exp_data_6$allP - mean(exp_data_6$allP))/sd(exp_data_6$allP)
+exp_data_6$month ='june'
+#exp_data_6
+
+
+# Drop rows containing NA
+exp_subset_6 = exp_data_6[,c(1, 4, 5)]
+
+#### calculating experimental starting quantity ####
+probmat = predict(ordfit$fit, as.matrix(exp_subset_6[,2:3]))
+probmat[1:10,]
+##### finding adjustment value and adjusted test 1 in calibrated #####
+
+group = split.data.frame(calib_data_6, calib_data_6$startq)
+
+adj <- function(AllP, Test1){
+  adjust = ave(AllP)-ave(Test1)
+  return(adjust)
+}
+
+adjval = NULL
+for (k in group){
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+}
+
+
+##### Creating a dataframe with the stq and adjustment values #########
+calib_adj = as.data.frame(cbind(unique(calib_data_6$startq), unique(adjval)))
+colnames(calib_adj) = c("startq", "adj")
+
+#convert adjustment from picograms to femtograms (1:1000)
+calib_adj$adj = (calib_adj$adj)*1000
+
+
+# convert test1 and allp to femtograms
+exp_data_6[,c(2,3)] = exp_data_6[,c(2,3)]*1000
+
+# Apply probability matrix to the adjustment values using matrix multiplication 
+exp_data_6$exp.adjust = probmat%*%calib_adj$adj
+
+# Create new column with stress product (VQTL input)
+exp_data_6$exp.adjustTest1 = exp_data_6$test1.exp+exp_data_6$exp.adjust #?????
+
+# convert allP and adjusted test 1 to femtograms
+exp_data_6$stress = exp_data_6$allP.exp - exp_data_6$exp.adjustTest1    #?????
+
+boxplot(exp_data_6$allP.exp, exp_data_6$test1.exp, exp_data_6$stress, main = "Boxplot of Experimental All Products, Test 1, and Stress",
+        names =c("All Products", "Test 1", "Stress"), ylab = "Cp value", col =c("blue", "red", "green"))
+
+hist(exp_data_6$stress, col = "light blue")
+### analyzing negative stress ###
+negstress = exp_data_6 %>% filter(exp_data_6$stress<0)
+hist(negstress$stress, col = "light green")
+length(negstress$stress)/length(exp_data_6$stress)
+
+# making negstress "NA" #
+exp_data_6= exp_data_6[which(exp_data_6[,9] >0),]
+
+##############################################################################################################
+
+
+calib_data_8 = (read.csv("calib_2018_8#2.csv")[,c(2:4)])
+calib_data_8$ztest1 = (calib_data_8$test1 - mean(calib_data_8$test1))/sd(calib_data_8$test1)
+calib_data_8$zallP = (calib_data_8$allP - mean(calib_data_8$allP))/sd(calib_data_8$allP)
+calib_data_8$month ='August'
+#calib_data_8
+
+calib_subset_8 = calib_data_8[,c(1, 4,5)]
+ordfit = ordinalNetTune(as.matrix(calib_subset_8[,2:3]), as.factor(calib_subset_8$startq), family = "cumulative",
+                        link = "logit", parallelTerms = TRUE, nonparallelTerms = TRUE, 
+                        warn = FALSE, printProgress = FALSE)
+
+# MONTH 2 (2018_8 / JUNE) EXPERIMENTAL DATA FRAME 
+exp_data_8 = na.omit(read.csv("exp_2018_8#2.csv")[,-c(1,5,6,7)])
+exp_data_8$ztest1 = (exp_data_8$test1 - mean(exp_data_8$test1))/sd(exp_data_8$test1)
+exp_data_8$zallP = (exp_data_8$allP - mean(exp_data_8$allP))/sd(exp_data_8$allP)
+exp_data_8$month ='August'
+#exp_data_6
+
+
+# Drop rows containing NA
+exp_subset_8 = exp_data_8[,c(1, 4, 5)]
+
+#### calculating experimental starting quantity ####
+probmat = predict(ordfit$fit, as.matrix(exp_subset_8[,2:3]))
+probmat[1:10,]
+##### finding adjustment value and adjusted test 1 in calibrated #####
+
+group = split.data.frame(calib_data_8, calib_data_8$startq)
+
+adj <- function(AllP, Test1){
+  adjust = ave(AllP)-ave(Test1)
+  return(adjust)
+}
+
+adjval = NULL
+for (k in group){
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+}
+
+
+##### Creating a dataframe with the stq and adjustment values #########
+calib_adj = as.data.frame(cbind(unique(calib_data_8$startq), unique(adjval)))
+colnames(calib_adj) = c("startq", "adj")
+
+#convert adjustment from picograms to femtograms (1:1000)
+calib_adj$adj = (calib_adj$adj)*1000
+
+
+# convert test1 and allp to femtograms
+exp_data_8[,c(2,3)] = exp_data_8[,c(2,3)]*1000
+
+# Apply probability matrix to the adjustment values using matrix multiplication 
+exp_data_8$exp.adjust = probmat%*%calib_adj$adj
+
+# Create new column with stress product (VQTL input)
+exp_data_8$exp.adjustTest1 = exp_data_8$test1.exp+exp_data_8$exp.adjust #?????
+
+# convert allP and adjusted test 1 to femtograms
+exp_data_8$stress = exp_data_8$allP.exp - exp_data_8$exp.adjustTest1    #?????
+
+boxplot(exp_data_8$allP.exp, exp_data_8$test1.exp, exp_data_8$stress, main = "Boxplot of Experimental All Products, Test 1, and Stress",
+        names =c("All Products", "Test 1", "Stress"), ylab = "Cp value", col =c("blue", "red", "green"))
+
+hist(exp_data_8$stress, col = "light blue")
+### analyzing negative stress ###
+negstress = exp_data_8 %>% filter(exp_data_8$stress<0)
+hist(negstress$stress, col = "light green")
+length(negstress$stress)/length(exp_data_8$stress)
+
+# making negstress "NA" #
+exp_data_8= exp_data_11[which(exp_data_8[,9] >0),]
+
+###############################################################################################################
+calib_data_11 = (read.csv("calib_2018_11#2.csv")[,c(2:4)])
+calib_data_11$ztest1 = (calib_data_11$test1 - mean(calib_data_11$test1))/sd(calib_data_11$test1)
+calib_data_11$zallP = (calib_data_11$allP - mean(calib_data_11$allP))/sd(calib_data_11$allP)
+calib_data_11$month ='Novemeber'
+#calib_data_11
+
+calib_subset_11 = calib_data_11[,c(1, 4,5)]
+ordfit = ordinalNetTune(as.matrix(calib_subset_11[,2:3]), as.factor(calib_subset_11$startq), family = "cumulative",
+                        link = "logit", parallelTerms = TRUE, nonparallelTerms = TRUE, 
+                        warn = FALSE, printProgress = FALSE)
+
+# MONTH 2 (2018_11 / JUNE) EXPERIMENTAL DATA FRAME 
+exp_data_11 = na.omit(read.csv("exp_2018_11#2.csv")[,-c(1,5,6,7)])
+exp_data_11$ztest1 = (exp_data_11$test1 - mean(exp_data_11$test1))/sd(exp_data_11$test1)
+exp_data_11$zallP = (exp_data_11$allP - mean(exp_data_11$allP))/sd(exp_data_11$allP)
+exp_data_11$month ='Novemeber'
+#exp_data_11
+
+
+# Drop rows containing NA
+exp_subset_11 = exp_data_11[,c(1, 4, 5)]
+
+#### calculating experimental starting quantity ####
+probmat = predict(ordfit$fit, as.matrix(exp_subset_11[,2:3]))
+probmat[1:10,]
+##### finding adjustment value and adjusted test 1 in calibrated #####
+
+group = split.data.frame(calib_data_11, calib_data_11$startq)
+
+adj <- function(AllP, Test1){
+  adjust = ave(AllP)-ave(Test1)
+  return(adjust)
+}
+
+adjval = NULL
+for (k in group){
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+}
+
+
+##### Creating a dataframe with the stq and adjustment values #########
+calib_adj = as.data.frame(cbind(unique(calib_data_11$startq), unique(adjval)))
+colnames(calib_adj) = c("startq", "adj")
+
+#convert adjustment from picograms to femtograms (1:1000)
+calib_adj$adj = (calib_adj$adj)*1000
+
+
+# convert test1 and allp to femtograms
+exp_data_11[,c(2,3)] = exp_data_11[,c(2,3)]*1000
+
+# Apply probability matrix to the adjustment values using matrix multiplication 
+exp_data_11$exp.adjust = probmat%*%calib_adj$adj
+
+# Create new column with stress product (VQTL input)
+exp_data_11$exp.adjustTest1 = exp_data_11$test1.exp+exp_data_11$exp.adjust #?????
+
+# convert allP and adjusted test 1 to femtograms
+exp_data_11$stress = exp_data_11$allP.exp - exp_data_11$exp.adjustTest1    #?????
+
+boxplot(exp_data_11$allP.exp, exp_data_11$test1.exp, exp_data_11$stress, main = "Boxplot of Experimental All Products, Test 1, and Stress",
+        names =c("All Products", "Test 1", "Stress"), ylab = "Cp value", col =c("blue", "red", "green"))
+
+hist(exp_data_11$stress, col = "light blue")
+### analyzing negative stress ###
+negstress = exp_data_11 %>% filter(exp_data_11$stress<0)
+hist(negstress$stress, col = "light green")
+length(negstress$stress)/length(exp_data_11$stress)
+
+# we want to replace the negative values with N/A
+exp_data_11= exp_data_11[which(exp_data_11[,9] >0),]
+
+
+exp_data = rbind.data.frame(exp_data_6,exp_data_8,exp_data_11)
+### Write the exp data with the stress product as a new data frame for vqtl matching
+write.csv(exp_data, "Hierarchical_exp_data_stress_by_month.csv")
+
+################################################################################################################
+
+barcode.breed = read.csv("vqtlinput.csv")
+barcode.breed = cbind.data.frame(barcode.breed$Barcode, barcode.breed$BreedType)
+names(barcode.breed) = c("Barcode", "BreedType")
+barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
+barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
+barcode.breed = barcode.breed[3:367,]
+barcode.breed = na.omit(barcode.breed)
+
+exp_data = read.csv("Hierarchical_exp_data_stress_by_month.csv")
+exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
+exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
+exp_data = na.omit(exp_data)
+exp_data = exp_data[,-1]
+names(exp_data)[1]= 'Barcode'
+exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
+
+left  <- exp_data %>% left_join(barcode.breed,  by = 'Barcode')
+left.str = left[c(1,9)]
+setwd("/Users/michaelcopeland/Downloads")
+
+fulldata = read.csv("SamplingPlan_dat2.csv")#OSF
+fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
+fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
+fulldata_sub = fulldata[,1:15]
+left.stress <- fulldata_sub %>% left_join(left.str,  by = 'Barcode')
+fulldata.all = cbind.data.frame(left.stress, fulldata[,18:3252])
+fulldata.na = na.omit(fulldata.all)
+fulldata.vqtl = cbind.data.frame(fulldata.na$stress,fulldata.na$Barcode,fulldata.na$Date,fulldata.na$BreedType,
+                                 fulldata.na$Genotype, fulldata.na[17:3251])
 
 
 
+setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/qPCR2vQTL")
+hybrid.inbred = read.csv("Fullinb&hyb.csv", header = FALSE)
+names(fulldata.vqtl) = hybrid.inbred[1,]
+hybrid.inbred = read.csv("Fullinb&hyb.csv", header = TRUE)
+fulldata.vqtl = rbind.data.frame(as.matrix(hybrid.inbred[1:2,]),as.matrix(fulldata.vqtl))
+fulldata.vqtl$stress = as.character(fulldata.vqtl$stress)
+rownames(fulldata.vqtl) <- NULL;
+fulldata.vqtl[1,1] = ""
+fulldata.vqtl[2,1] = ""
+fulldata.vqtl = fulldata.vqtl[,-c(2,3,5)]
+write.csv(fulldata.vqtl, "fullvqtldata#3.csv", row.names = FALSE)
+test_full <- read.cross(file = "fullvqtldata#3.csv", format = "csv")
+
+test_full <- drop.nullmarkers(test_full)
+test_full <- calc.genoprob(test_full)
+
+test_full <- calc.genoprob(test_full, error.prob = .001)
+hy_p1 <- scanone(cross = test_full, pheno.col = 'stress')
+hyv_p2 <- scanonevar(cross = test_full, 
+                     mean.formula = stress ~ BreedType*mean.QTL.add, 
+                     var.formula = ~ BreedType*var.QTL.add, 
+                     return.covar.effects = TRUE)
