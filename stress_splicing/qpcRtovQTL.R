@@ -18,13 +18,14 @@ library(qpcR)
 # In the case of having one CSV containing calculated derivatives, use this code:
 
 setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/qPCR2vQTL")
-####################################NOVEMBER#####################################################
+####################################NOVEMBER#####################################################################
 plate.1 = read.csv("2018_11_1_plate.csv")
 plate.2 = read.csv("2018_11_2_plate.csv")
-
+#read in november files
 plate.2 = plate.2[,-1]
 plate  = cbind(plate.1, plate.2)
 finalcycle3 = rbind(plate[2,],plate[1,],plate[3,],plate[6:45,])
+#just need sample ID, starting quantity and reaction type
 sampleid = finalcycle3[1:3,]
 finalcycle3.edit = t(finalcycle3)
 finalcycle3.edit = as.data.frame(finalcycle3.edit)
@@ -32,16 +33,18 @@ colnames(finalcycle3.edit) = c('unique_sampleID_number','reaction_type',"Startin
 fc.6.total = finalcycle3.edit[2:495,]
 fc.6.total = t(fc.6.total)
 fc.6.total = cbind.data.frame(11:40, fc.6.total[14:43,])
+#only want cycle 11-40 otherwise we get skewed data
 names(fc.6.total) = c("Cycles",2:495)
 fc.6.total %<>% mutate_if(is.character,as.numeric)
-cp40 = pcrfit(1,27,data = fc.6.total, model = l5)
-plot(cp40,type="all")
-efficiency(cp40)
+#make all values as numeric
 m.6.efficiencies =  pcrbatch(fc.6.total, model = l5)
+#qpcr cp analysis
 cps = m.6.efficiencies[7,]
+#just want cpD1
 sampleid = as.matrix(sampleid)
 cps = as.matrix(cps)
 cps.sa = rbind(sampleid, cps)
+#putting cpd1 with respective sample ID 
 ###############################################################################################
 ########################################################## 
 ################### Initial Data Framing #################
@@ -200,10 +203,11 @@ exp_data$allP.exp.ln = log(exp_data$allP.exp)
 write.csv(exp_data, file = "exp_2018_11#2.csv")
 
 ####################################AUGUST#####################################################
+#This uses the same commentrary as for NOvemeber
 plate.3 = read.csv("2018_8_1_plate.csv")
 plate.4 = read.csv("2018_8_2_plate.csv")
 plate.5 = read.csv("2018_8_3_plate.csv")
-
+#read in August files
 plate.4 = plate.4[,-1]
 plate.5 = plate.5[,-1]
 plate  = cbind(plate.3, plate.4, plate.5)
@@ -217,9 +221,6 @@ fc.6.total = t(fc.6.total)
 fc.6.total = cbind.data.frame(11:40, fc.6.total[14:43,])
 names(fc.6.total) = c("Cycles",2:609)
 fc.6.total %<>% mutate_if(is.character,as.numeric)
-cp40 = pcrfit(1,27,data = fc.6.total, model = l5)
-plot(cp40,type="all")
-efficiency(cp40)
 m.6.efficiencies =  pcrbatch(fc.6.total, model = l5)
 cps = m.6.efficiencies[7,]
 sampleid = as.matrix(sampleid)
@@ -383,8 +384,9 @@ exp_data$allP.exp.ln = log(exp_data$allP.exp)
 write.csv(exp_data, file = "exp_2018_8#2.csv")
 
 ####################################JUNE#####################################################
+#Same commentary as with November and August
 plate.6 = read.csv("2018_6_1_plate.csv")
-
+#read in Junes files
 plate  = plate.6
 finalcycle3 = rbind(plate[2,],plate[1,],plate[3,],plate[6:45,])
 sampleid = finalcycle3[1:3,]
@@ -396,9 +398,6 @@ fc.6.total = t(fc.6.total)
 fc.6.total = cbind.data.frame(11:40, fc.6.total[14:43,])
 names(fc.6.total) = c("Cycles",2:277)
 fc.6.total %<>% mutate_if(is.character,as.numeric)
-cp40 = pcrfit(1,27,data = fc.6.total, model = l5)
-plot(cp40,type="all")
-efficiency(cp40)
 m.6.efficiencies =  pcrbatch(fc.6.total, model = l5)
 cps = m.6.efficiencies[7,]
 sampleid = as.matrix(sampleid)
@@ -744,7 +743,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
 }
 
 
@@ -791,33 +790,38 @@ barcode.breed = cbind.data.frame(barcode.breed$Barcode, barcode.breed$BreedType)
 names(barcode.breed) = c("Barcode", "BreedType")
 barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
 barcode.breed$Barcode = substring(barcode.breed$Barcode, regexpr("_", barcode.breed$Barcode) + 1)
+#eliminating the fist part of sample ID so that it is all the same 2-3 digit key
 barcode.breed = barcode.breed[3:367,]
 barcode.breed = na.omit(barcode.breed)
-
+#this is taking this file with breedtype and sample ID 
 exp_data = read.csv("Hierarchical_exp_data_stress#3.csv")
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
 exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$sampleID.exp) + 1)
+#eliminating the fist part of sample ID so that it is all the same 2-3 digit key
 exp_data = na.omit(exp_data)
 exp_data = exp_data[,-1]
-names(exp_data)[1]= 'Barcode'
+names(exp_data)[1]= 'Barcode'#change name from sample ID to barcode for left join
 exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
 
 left  <- exp_data %>% left_join(barcode.breed,  by = 'Barcode')
+#exp_data gets the respecive breedtype added
 left.str = left[c(1,11)]
+#create collumn of barcode ans stress
 setwd("/Users/michaelcopeland/Downloads")
-
+# this file is too big for github so I left it in downloads. Can be found in OSF
 fulldata = read.csv("SamplingPlan_dat2.csv")#OSF
 fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
 fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
+#eliminating the fist part of sample ID so that it is all the same 2-3 digit key
 fulldata_sub = fulldata[,1:15]
 left.stress <- fulldata_sub %>% left_join(left.str,  by = 'Barcode')
 fulldata.all = cbind.data.frame(left.stress, fulldata[,18:3252])
 fulldata.na = na.omit(fulldata.all)
 fulldata.vqtl = cbind.data.frame(fulldata.na$stress,fulldata.na$Barcode,fulldata.na$Date,fulldata.na$BreedType,
                                  fulldata.na$Genotype, fulldata.na[17:3251])
+#here we add the stress to the full dataset and eliminate unnecessary columns
 
-
-
+#here we put the vQTL code
 setwd("/Users/michaelcopeland/Stapleton/Copeland/stapleton_lab/qPCR2vQTL")
 hybrid.inbred = read.csv("Fullinb&hyb.csv", header = FALSE)
 names(fulldata.vqtl) = hybrid.inbred[1,]
@@ -883,7 +887,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
 }
 
 
@@ -958,7 +962,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
 }
 
 
@@ -1031,7 +1035,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#this needs to be fixed***********
+  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
 }
 
 
@@ -1073,7 +1077,7 @@ exp_data = rbind.data.frame(exp_data_6,exp_data_8,exp_data_11)
 write.csv(exp_data, "Hierarchical_exp_data_stress_by_month.csv")
 
 ################################################################################################################
-
+#This has the same comments as the combined data
 barcode.breed = read.csv("vqtlinput.csv")
 barcode.breed = cbind.data.frame(barcode.breed$Barcode, barcode.breed$BreedType)
 names(barcode.breed) = c("Barcode", "BreedType")
