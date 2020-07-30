@@ -201,9 +201,8 @@ exp_data$test1.exp.ln = log(exp_data$test1.exp)
 exp_data$allP.exp.ln = log(exp_data$allP.exp)
 
 write.csv(exp_data, file = "exp_2018_11#2.csv")
-
 ####################################AUGUST#####################################################
-#This uses the same commentrary as for NOvemeber
+#This uses the same commentrary as for Novemeber
 plate.3 = read.csv("2018_8_1_plate.csv")
 plate.4 = read.csv("2018_8_2_plate.csv")
 plate.5 = read.csv("2018_8_3_plate.csv")
@@ -663,6 +662,13 @@ legend('topright', legend=c("Test 1", "All Products"),
 hist(calib_data$allP, col = "red")
 hist(calib_data$test1, col = "blue")
 
+calib_data = cbind.data.frame(calib_data, calib_data$allP-calib_data$test1)
+names(calib_data)[9] = "Ratio"
+
+boxplot(Ratio~startq,data = calib_data,
+        main = "Calibrated data - starting quantities vs pairwise ratios",
+         ylab = "Ratio", col =c("blue", "red", "green"))
+
 # ###### POLR models ######
 # # Ordinal Logistic Regression Model 
 # model = polr(as.factor(calib_subset$startq) ~ ., data=calib_subset, Hess = TRUE)
@@ -743,8 +749,8 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
-}
+  adjval = c(adjval,adj(k$allP, k$test1))# Don't need to log in order to subtract in above function
+}#This is right now because all ct values are prelogged
 
 
 ##### Creating a dataframe with the stq and adjustment values #########
@@ -858,6 +864,13 @@ calib_data_6$month ='june'
 #calib_data_6
 
 calib_subset_6 = calib_data_6[,c(1, 4,5)]
+
+calib_data_6 = cbind.data.frame(calib_data_6, calib_data_6$allP-calib_data_6$test1)
+names(calib_data_6)[7] = "Ratio"
+boxplot(Ratio~startq,data = calib_data_6,
+        main = "Calibrated data - starting quantities vs ratios June",
+        ylab = "Ratio", col =c("blue", "red", "green"))
+
 ordfit = ordinalNetTune(as.matrix(calib_subset_6[,2:3]), as.factor(calib_subset_6$startq), family = "cumulative",
                         link = "logit", parallelTerms = TRUE, nonparallelTerms = TRUE, 
                         warn = FALSE, printProgress = FALSE)
@@ -887,7 +900,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
+  adjval = c(adjval,adj(k$allP, k$test1))#need to log in order to subtract in above function
 }
 
 
@@ -932,6 +945,13 @@ calib_data_8$zallP = (calib_data_8$allP - mean(calib_data_8$allP))/sd(calib_data
 calib_data_8$month ='August'
 #calib_data_8
 
+calib_data_8 = cbind.data.frame(calib_data_8, calib_data_8$allP-calib_data_8$test1)
+names(calib_data_8)[7] = "Ratio"
+boxplot(Ratio~startq,data = calib_data_8,
+        main = "Calibrated data - starting quantities vs ratios Aug",
+        ylab = "Ratio", col =c("blue", "red", "green"))
+
+
 calib_subset_8 = calib_data_8[,c(1, 4,5)]
 ordfit = ordinalNetTune(as.matrix(calib_subset_8[,2:3]), as.factor(calib_subset_8$startq), family = "cumulative",
                         link = "logit", parallelTerms = TRUE, nonparallelTerms = TRUE, 
@@ -962,7 +982,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
+  adjval = c(adjval,adj(k$allP, k$test1))#need to log in order to subtract in above function
 }
 
 
@@ -996,7 +1016,7 @@ hist(negstress$stress, col = "light green")
 length(negstress$stress)/length(exp_data_8$stress)
 
 # making negstress "NA" #
-exp_data_8= exp_data_11[which(exp_data_8[,9] >0),]
+exp_data_8= exp_data_8[which(exp_data_8[,9] >0),]
 
 ###############################################################################################################
 calib_data_11 = (read.csv("calib_2018_11#2.csv")[,c(2:4)])
@@ -1004,6 +1024,12 @@ calib_data_11$ztest1 = (calib_data_11$test1 - mean(calib_data_11$test1))/sd(cali
 calib_data_11$zallP = (calib_data_11$allP - mean(calib_data_11$allP))/sd(calib_data_11$allP)
 calib_data_11$month ='Novemeber'
 #calib_data_11
+
+calib_data_11 = cbind.data.frame(calib_data_11, calib_data_11$allP-calib_data_11$test1)
+names(calib_data_11)[7] = "Ratio"
+boxplot(Ratio~startq,data = calib_data_11,
+        main = "Calibrated data - starting quantities vs ratios nov",
+        ylab = "Ratio", col =c("blue", "red", "green"))
 
 calib_subset_11 = calib_data_11[,c(1, 4,5)]
 ordfit = ordinalNetTune(as.matrix(calib_subset_11[,2:3]), as.factor(calib_subset_11$startq), family = "cumulative",
@@ -1035,7 +1061,7 @@ adj <- function(AllP, Test1){
 
 adjval = NULL
 for (k in group){
-  adjval = c(adjval,adj(log(k$allP), log(k$test1)))#need to log in order to subtract in above function
+  adjval = c(adjval,adj(k$allP, k$test1))#need to log in order to subtract in above function
 }
 
 
