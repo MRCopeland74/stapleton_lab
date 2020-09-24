@@ -807,7 +807,7 @@ exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$s
 exp_data = na.omit(exp_data)
 exp_data = exp_data[,-1]
 names(exp_data)[1]= 'Barcode'#change name from sample ID to barcode for left join
-exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
+
 
 left  <- exp_data %>% left_join(barcode.breed,  by = 'Barcode')
 #exp_data gets the respecive breedtype added
@@ -821,6 +821,7 @@ fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 
 #eliminating the fist part of sample ID so that it is all the same 2-3 digit key
 fulldata_sub = fulldata[,1:15]
 left.stress <- fulldata_sub %>% left_join(left.str,  by = 'Barcode')
+left.stress = distinct(left.stress,X.1,.keep_all = TRUE)
 fulldata.all = cbind.data.frame(left.stress, fulldata[,18:3252])
 fulldata.na = na.omit(fulldata.all)
 fulldata.vqtl = cbind.data.frame(fulldata.na$stress,fulldata.na$Barcode,fulldata.na$Date,fulldata.na$BreedType,
@@ -838,8 +839,8 @@ rownames(fulldata.vqtl) <- NULL;
 fulldata.vqtl[1,1] = ""
 fulldata.vqtl[2,1] = ""
 fulldata.vqtl = fulldata.vqtl[,-c(2,3,5)]
-write.csv(fulldata.vqtl, "fullvqtldata#3.csv", row.names = FALSE)
-test_full <- read.cross(file = "fullvqtldata#3.csv", format = "csv")
+write.csv(fulldata.vqtl, "fullvqtldata#4.csv", row.names = FALSE)
+test_full <- read.cross(file = "fullvqtldata#4.csv", format = "csv")
 
 test_full <- drop.nullmarkers(test_full)
 test_full <- calc.genoprob(test_full)
@@ -847,11 +848,11 @@ test_full <- calc.genoprob(test_full)
 test_full <- calc.genoprob(test_full, error.prob = .001)
 hy_p1 <- scanone(cross = test_full, pheno.col = 'stress')
 hyv_p2 <- scanonevar(cross = test_full, 
-                     mean.formula = stress ~ BreedType*mean.QTL.add, 
-                     var.formula = ~ BreedType*var.QTL.add, 
+                     mean.formula = stress ~ BreedType + mean.QTL.add, 
+                     var.formula = ~ BreedType + var.QTL.add, 
                      return.covar.effects = TRUE)
-
-
+write.csv(hyv_p2$result, "additiveScanonevar.csv")
+plot(hyv_p2$result$pos, hyv_p2$result$vQTL.asymp.p)
 
 #ratio if femtograms and substraction if log scale
 ################################################## by month analysis #############################################
@@ -1118,7 +1119,7 @@ exp_data$sampleID.exp = substring(exp_data$sampleID.exp, regexpr("_", exp_data$s
 exp_data = na.omit(exp_data)
 exp_data = exp_data[,-1]
 names(exp_data)[1]= 'Barcode'
-exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
+#exp_data = exp_data[-318,]#somehow we have duplicate sample IDs
 
 left  <- exp_data %>% left_join(barcode.breed,  by = 'Barcode')
 left.str = left[c(1,9)]
@@ -1129,6 +1130,7 @@ fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 
 fulldata$Barcode = substring(fulldata$Barcode, regexpr("_", fulldata$Barcode) + 1)
 fulldata_sub = fulldata[,1:15]
 left.stress <- fulldata_sub %>% left_join(left.str,  by = 'Barcode')
+left.stress = distinct(left.stress,X.1,.keep_all = TRUE)
 fulldata.all = cbind.data.frame(left.stress, fulldata[,18:3252])
 fulldata.na = na.omit(fulldata.all)
 fulldata.vqtl = cbind.data.frame(fulldata.na$stress,fulldata.na$Barcode,fulldata.na$Date,fulldata.na$BreedType,
@@ -1154,7 +1156,12 @@ test_full <- calc.genoprob(test_full)
 
 test_full <- calc.genoprob(test_full, error.prob = .001)
 hy_p1 <- scanone(cross = test_full, pheno.col = 'stress')
-hyv_p2 <- scanonevar(cross = test_full, 
-                     mean.formula = stress ~ BreedType*mean.QTL.add, 
-                     var.formula = ~ BreedType*var.QTL.add, 
+hyv_p2.month <- scanonevar(cross = test_full, 
+                     mean.formula = stress ~ BreedType+mean.QTL.add, 
+                     var.formula = ~ BreedType+var.QTL.add, 
                      return.covar.effects = TRUE)
+write.csv(hyv_p2.month$result, "additiveScanonevarMonth.csv")
+
+
+
+
