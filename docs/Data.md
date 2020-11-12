@@ -31,7 +31,7 @@ The remaining 362 columns describe different gene names. These are either A, B o
 For more information regarding `stress`, please see our [qPCR Analysis](https://stapleton-lab.readthedocs.io/en/latest/qPCR%20Analysis/).
 
 
-Below is a truncated sample from the combined inbred and hybrid dataset. The first row after the headers is the chromosome number and the second is the distance on each chromosome. Some columns have been omitted below as they are irrelevant to the analysis process.
+Below is a truncated sample from the [combined inbred and hybrid](https://github.com/MRCopeland74/stapleton_lab/blob/master/qPCR2vQTL/fullvqtldata%234.csv) dataset after the stress value has been added to it. The first row after the headers is the chromosome number and the second is the distance on each chromosome. Some columns have been omitted below as they are irrelevant to the analysis process. 
 
 | stress    | BreedType | gpm27 | tub1 | gpm113b | gpm705a | gpm325a | dmt103b | gpm699d | gpm319 |
 |-----------|-----------|-------|------|---------|---------|---------|---------|---------|--------|
