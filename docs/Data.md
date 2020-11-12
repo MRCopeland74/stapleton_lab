@@ -20,11 +20,13 @@ td{
 
 ## vQTL Data
 The hyrbid and inbred data used for our vQTL analysis originates from `[FullHybvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullHybvqtlinput.csv) and `[FullInbvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullInbvqtlinput.csv) respectively. The list below details the factors included in these datasets.
- * Our phenotype of interest, stress gene amount (`stress`)
- * A unique identifier for each observation (`Barcode`)
- * The month that the sample was taken (`month`: *June, August, November*)
- * The breed type of the maize corresponding to the sample (`BreedType`: *Hybrid, Inbred*)
- * The genotype of the sample (`Genotype`)
+
+* Our phenotype of interest, stress gene amount (`stress`)
+* A unique identifier for each observation (`Barcode`)
+* The month that the sample was taken (`month`: *June, August, November*)
+* The breed type of the maize corresponding to the sample (`BreedType`: *Hybrid, Inbred*)
+* The genotype of the sample (`Genotype`)
+
 The remaining 362 columns describe different gene names. These are either A, B or NA. The `Genotype` variable corresponds to a unique arrangement of these 362 genes.
 For more information regarding `stress`, please see our [qPCR Analysis](https://stapleton-lab.readthedocs.io/en/latest/qPCR%20Analysis/).
 
