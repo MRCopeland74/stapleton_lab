@@ -19,7 +19,7 @@ td{
 [Hierarchical](https://osf.io/wqrsd/) and the [Sampling Plan](https://osf.io/mu5qs/) Data are available at this link. Here is a sample of the sampling plan dataset. The Hierarchical_exp_data_stress#3 is the most recent heirarchical entry.
 
 ## vQTL Data
-The hyrbid and inbred data used for our vQTL analysis originates from `[FullHybvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullHybvqtlinput.csv) and `[FullInbvqtlinput.csv]`(https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullInbvqtlinput.csv) respectively. The list below details the factors included in these datasets.
+The hyrbid and inbred data used for our vQTL analysis originates from [FullHybvqtlinput.csv](https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullHybvqtlinput.csv) and [FullInbvqtlinput.csv](https://github.com/AustinGratton/vQTL/blob/master/qPCR/FullInbvqtlinput.csv) respectively. The list below details the factors included in these datasets.
 
 * Our phenotype of interest, stress gene amount (`stress`)
 * A unique identifier for each observation (`Barcode`)

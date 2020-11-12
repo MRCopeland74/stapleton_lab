@@ -9,8 +9,9 @@ nav:
 - WorkFlow:
     - Getting Started: 'Using R.md'
     - Data: 'Data.md'
-    - qPCR Analysis': 'qPCR Analysis.md'
-    - vQTL Analysis': 'vQTL Analysis.md'
+    - qPCR Analysis: 'qPCR Analysis.md'
+    - vQTL Analysis: 'vQTL Analysis.md'
+	- DGLM Analysis: 'DGLM.md'
     - Workflow: 'Workflow.md'
 - Tutorials:
     - Introduction to GitHub and Project Set-up: 'Using GitHub.md'
