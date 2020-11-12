@@ -18,6 +18,8 @@ Better tools to analyze the varying genes interacting with particular phenotypes
 * Michael Copeland : University of North Carolina Wilmington
   + mrc5353@uncw.edu
   + michaelrcopeland74@gmail.com
+* Bowen Jones : University of North Carolina Wilmington
+  + bwj9135@uncw.edu
 
 ## Purpose
 Better combinations of genes within corn crops due to genetic modification can result in a better harvest. These combinations of genes can further be altered to maximize the harvest in various environment conditions such as low rainfall/poor irrigation, low nitrogen levels, or with the presence of a pathogen or in amalgamation of these factors. Farmers can assess the environmental conditions and thus determine the most favorable genotype to grow in their landscape for the best crop yield.
